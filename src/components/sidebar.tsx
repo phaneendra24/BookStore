@@ -33,11 +33,8 @@ export default function Sidebar() {
     <div className="static text-white">
       {options.map((i) => {
         return (
-          <Link href={i.link}>
-            <div
-              key={i.name}
-              className="my-10 flex w-fit cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:border-b-2 hover:bg-[#292929] hover:decoration-black"
-            >
+          <Link href={i.link} key={i.name}>
+            <div className="my-10 flex w-fit cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:border-b-2 hover:bg-[#292929] hover:decoration-black">
               <span>
                 <Image
                   src={`${i.src}`}
