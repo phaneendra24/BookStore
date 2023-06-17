@@ -3,7 +3,8 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Mainfeed from "~/components/Mainfeed";
+import Genresuggs from "~/components/mainfeed/genresuggestions";
+import Mainfeed from "~/components/mainfeed/Mainfeed";
 import Navbar from "~/components/Navbar";
 import PrimaryLayout from "~/components/primarylayout";
 import Sidebar from "~/components/sidebar";
@@ -18,10 +19,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="">
-        {/* <Sidebar /> */}
-        {/* <AuthShowcase /> */}
-        {/* <Mainfeed /> */}
+      <main className="ml-10 mt-5 flex h-full grow flex-col  text-white">
+        <Genresuggs />
+        <Mainfeed />
       </main>
     </>
   );

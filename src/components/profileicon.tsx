@@ -5,7 +5,7 @@ export default function Profileicon() {
   const { data } = useSession();
 
   return (
-    <div className="h-fit w-fit rounded-full border-[2px] border-green-900">
+    <div className="h-fit w-fit cursor-pointer rounded-full border-[2px] border-green-900">
       <Image
         src={data?.user.image ?? "/avatar.svg"}
         alt="err loading"
