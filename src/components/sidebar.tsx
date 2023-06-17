@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Sidebar() {
   const options = [
@@ -10,8 +11,8 @@ export default function Sidebar() {
     },
     {
       src: "/inbox.svg",
-      name: "Inbox",
-      link: "/inbox",
+      name: "Trade",
+      link: "/trade",
     },
     {
       src: "/messages.svg",
@@ -29,18 +30,22 @@ export default function Sidebar() {
       link: "/cart",
     },
   ];
+  const router = useRouter();
+  console.log(router.asPath);
+
   return (
     <div className="static text-white">
       {options.map((i) => {
         return (
           <Link href={i.link} key={i.name}>
             <div className="my-10 flex w-fit cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:border-b-2 hover:bg-[#292929] hover:decoration-black">
-              <span>
+              <span className="">
                 <Image
                   src={`${i.src}`}
                   width={30}
                   height={30}
                   alt="error loading"
+                  className={`${router.asPath == i.src ? "underline" : ""}`}
                 />
               </span>
               <span>{i.name}</span>
