@@ -7,7 +7,7 @@ export default function Profileicon() {
   return (
     <div
       className="h-fit w-fit cursor-pointer rounded-full border-[2px] border-green-900"
-      onClick={() => signIn()}
+      onClick={async () => await signIn()}
     >
       <Image
         src={data?.user.image ?? "/avatar.svg"}

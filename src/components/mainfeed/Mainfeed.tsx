@@ -1,4 +1,3 @@
-import { api } from "~/utils/api";
 import BooksCard from "./bookcard";
 
 export default function Mainfeed() {

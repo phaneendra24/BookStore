@@ -1,10 +1,7 @@
 import { type NextPage } from "next";
-import { signIn, signOut, useSession } from "next-auth/react";
 import Head from "next/head";
-import { useRouter } from "next/router";
 import Genresuggs from "~/components/mainfeed/genresuggestions";
 import Mainfeed from "~/components/mainfeed/Mainfeed";
-import { api } from "~/utils/api";
 
 const Home: NextPage = () => {
   return (
