@@ -12,9 +12,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="ml-10 mt-5 flex h-full grow flex-col  text-white">
+      <main className="w-auto">
         <Genresuggs />
-        <Mainfeed />
+        {/* <Mainfeed /> */}
       </main>
     </>
   );

@@ -5,11 +5,13 @@ export default function Genresuggs() {
     "Horror",
     "Mythology",
     "Romance",
+    "Romance",
+    "Romance",
     "Adventure",
   ];
 
   return (
-    <div className="no-scrollbar relative flex gap-5 overflow-scroll">
+    <div className=" fixed flex w-[40vh] gap-5 overflow-scroll bg-slate-700">
       {genres.map((i) => {
         return (
           <button

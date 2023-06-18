@@ -6,7 +6,7 @@ export default function BooksCard() {
   console.log(data);
 
   return (
-    <div className="grid h-fit w-full grow grid-cols-3">
+    <div className="grid h-full w-full grow grid-cols-1 overflow-scroll sm:grid-cols-3">
       {isLoading ? (
         <>
           <div className="mb-5 flex flex-col items-center justify-center">
