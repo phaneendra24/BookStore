@@ -3,7 +3,7 @@ import Profileicon from "./profileicon";
 
 export default function Navbar() {
   return (
-    <div className="flex h-24 w-full items-center justify-between bg-black py-3 text-white">
+    <div className="fixed flex h-fit w-screen justify-between bg-black py-3 md:px-8 md:py-5">
       <div className="flex h-full items-center justify-start">
         <Image
           src="/menu.svg"

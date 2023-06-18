@@ -34,7 +34,7 @@ export default function Sidebar() {
   console.log(router.asPath);
 
   return (
-    <div className="static text-white">
+    <div className="fixed top-16 w-1/12 bg-black px-2 text-white md:px-8">
       {options.map((i) => {
         return (
           <Link href={i.link} key={i.name}>

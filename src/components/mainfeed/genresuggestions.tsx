@@ -11,7 +11,7 @@ export default function Genresuggs() {
   ];
 
   return (
-    <div className=" fixed flex w-[40vh] gap-5 overflow-scroll bg-slate-700">
+    <div className="no-scrollbar flex w-full gap-5 overflow-scroll">
       {genres.map((i) => {
         return (
           <button

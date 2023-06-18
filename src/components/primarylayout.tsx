@@ -3,13 +3,14 @@ import Sidebar from "./sidebar";
 
 export default function PrimaryLayout({ children }: { children: JSX.Element }) {
   return (
-    <div className="flex h-full min-h-[100vh] w-full justify-center  bg-black">
-      <div className="fixed  h-fit w-[90%] sm:w-[95%]">
+    <div className="flex h-full min-h-screen w-full  justify-center bg-black  text-white">
+      <div className="h-full w-full">
         <Navbar />
-      </div>
-      <div className="relative top-20 h-full w-[90%] sm:w-[95%] ">
-        <div className="fixed w-0 sm:w-fit">
+        <div className="flex h-full  bg-black ">
           <Sidebar />
+          <div className=" ml-20 mr-10 mt-32 w-10/12 overflow-hidden sm:ml-32">
+            {children}
+          </div>
         </div>
       </div>
     </div>
