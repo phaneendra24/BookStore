@@ -3,7 +3,7 @@ import { api } from "~/utils/api";
 export default function Trade() {
   const mutation = api.books.postbook.useMutation();
 
-  const postBook = async () => {
+  const postBook = () => {
     const data = mutation.mutate();
 
     console.log(data);

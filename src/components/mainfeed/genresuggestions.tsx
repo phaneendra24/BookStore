@@ -5,8 +5,6 @@ export default function Genresuggs() {
     "Horror",
     "Mythology",
     "Romance",
-    "Romance",
-    "Romance",
     "Adventure",
   ];
 
