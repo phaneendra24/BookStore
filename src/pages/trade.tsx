@@ -1,15 +1,28 @@
-import React from "react";
+import { useSession } from "next-auth/react";
+import React, { useRef, useState } from "react";
 import { api } from "~/utils/api";
 
 export default function Trade() {
-  const mutation = api.books.postbook.useMutation();
+  const [bookname, setbookname] = useState("");
+  const [sellername, setsellername] = useState("");
+  const [synopsis, setSynopsis] = useState("");
+  const [Genre, setGenre] = useState("");
+  const { mutate, error } = api.books.postbook.useMutation();
+  const { data: session } = useSession();
+
+  if (!session) {
+    return null;
+  }
 
   const postBook = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log(e.target.bookname.value);
-    console.log(e.target.value);
-
-    // const data = mutation.mutate();
+    mutate({
+      bookname: bookname,
+      synopsis: synopsis,
+      genre: Genre,
+      pages: 100,
+      sellername: sellername,
+    });
   };
 
   return (
@@ -22,24 +35,24 @@ export default function Trade() {
             <input
               type="text"
               required
-              name="bookname"
+              onChange={(e) => setbookname(e.target.value)}
               className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
               placeholder="name of the book"
             />
             <select
-              name=""
-              id=""
-              required
+              onChange={(e) => {
+                setGenre(e.target.value);
+              }}
               className="block w-fit rounded-lg border-2 border-[#f7e400]
                 bg-black p-2.5 text-sm text-gray-900  outline-none focus:ring-yellow-500 dark:bg-black dark:text-white dark:placeholder-black dark:focus:border-yellow-500
               "
               defaultValue="default"
             >
               <option value="default">Choose genre</option>
-              <option value="" className="mt-2 p-2">
+              <option value="fantasy" className="mt-2 p-2">
                 fantasy
               </option>
-              <option value="" className="mt-2 py-5">
+              <option value="Romance" className="mt-2 py-5">
                 Romance
               </option>
             </select>
@@ -47,6 +60,7 @@ export default function Trade() {
           <div className="flex items-center ">
             <span className="w-1/4">Synopsis </span>
             <textarea
+              onChange={(e) => setSynopsis(e.target.value)}
               placeholder="Describe your books in few words"
               className="synopsis h-28 w-3/4  resize-none border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 sm:w-2/4"
             ></textarea>
@@ -55,6 +69,7 @@ export default function Trade() {
           <div className="flex">
             <span className="w-1/4">Author Name</span>
             <input
+              onChange={(e) => setsellername(e.target.value)}
               type="text"
               className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
             />
