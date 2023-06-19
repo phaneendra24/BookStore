@@ -59,7 +59,7 @@ model VerificationToken {
 
 model books {
   id         String @id @default(cuid())
-  bookName   String
+  bookName   String 
   synopsis   String
   genre      String
   pages      Int

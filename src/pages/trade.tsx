@@ -1,67 +1,74 @@
+import React from "react";
 import { api } from "~/utils/api";
 
 export default function Trade() {
   const mutation = api.books.postbook.useMutation();
 
-  const postBook = () => {
-    const data = mutation.mutate();
+  const postBook = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log(e.target.bookname.value);
+    console.log(e.target.value);
 
-    console.log(data);
+    // const data = mutation.mutate();
   };
 
   return (
-    <div className="mt-10  px-10 text-white">
-      Trade will be displayed here --
-      <form onSubmit={postBook}>
-        <div>
-          <span>BookName</span>
-          <input
-            type="text"
-            required
-            className="border-[0.5px] border-slate-300 bg-transparent outline-none"
-          />
-        </div>
-        <div>
-          <span>Synopsis</span>
-          <input
-            type="text"
-            required
-            className="border-[0.5px] border-slate-300 bg-transparent outline-none"
-          />
-        </div>
-        <div>
-          <span>Genre</span>
-          <input
-            type="text"
-            required
-            className="border-[0.5px] border-slate-300 bg-transparent outline-none"
-          />
-        </div>
-        <div>
-          <span>pages</span>
-          <input
-            type="text"
-            required
-            className="border-[0.5px] border-slate-300 bg-transparent outline-none"
-          />
-        </div>
-        <div>
-          <span>authorname</span>
-          <input
-            type="text"
-            required
-            className="border-[0.5px] border-slate-300 bg-transparent outline-none"
-          />
-        </div>
+    <div className="relative">
+      <div className="bg-gren-400 flex h-full flex-col gap-5">
+        <header className="text-3xl">Sell Your Books Online</header>
+        <form onSubmit={(e) => postBook(e)} className="flex flex-col gap-10">
+          <div className="flex items-center">
+            <span className="w-1/4">BookName</span>
+            <input
+              type="text"
+              required
+              name="bookname"
+              className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
+              placeholder="name of the book"
+            />
+            <select
+              name=""
+              id=""
+              required
+              className="block w-fit rounded-lg border-2 border-[#f7e400]
+                bg-black p-2.5 text-sm text-gray-900  outline-none focus:ring-yellow-500 dark:bg-black dark:text-white dark:placeholder-black dark:focus:border-yellow-500
+              "
+              defaultValue="default"
+            >
+              <option value="default">Choose genre</option>
+              <option value="" className="mt-2 p-2">
+                fantasy
+              </option>
+              <option value="" className="mt-2 py-5">
+                Romance
+              </option>
+            </select>
+          </div>
+          <div className="flex items-center ">
+            <span className="w-1/4">Synopsis </span>
+            <textarea
+              placeholder="Describe your books in few words"
+              className="synopsis h-28 w-3/4  resize-none border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 sm:w-2/4"
+            ></textarea>
+          </div>
 
-        <button
-          type="submit"
-          onClick={() => postBook}
-          className="rounded-sm bg-slate-800 p-2 px-2"
-        >
-          send
-        </button>
-      </form>
+          <div className="flex">
+            <span className="w-1/4">Author Name</span>
+            <input
+              type="text"
+              className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
+            />
+          </div>
+          <button
+            type="submit"
+            onClick={() => postBook}
+            className="w-fit rounded-sm bg-[#f7e400] p-2 px-2 font-semibold text-black"
+          >
+            Open to sell
+          </button>
+        </form>
+      </div>
+      <div className="absolute top-20 z-[-1]  h-40 w-40 bg-yellow-400"></div>
     </div>
   );
 }
