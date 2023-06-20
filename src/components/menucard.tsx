@@ -9,7 +9,6 @@ interface IMyProps {
   setmenustatus: Dispatch<SetStateAction<boolean>>;
 }
 export default function MenuCard({ setmenustatus, menustatus }: IMyProps) {
-  const data = useSession();
   return (
     <>
       {menustatus ? (
