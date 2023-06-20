@@ -36,7 +36,7 @@ export default function MenuCard({ setmenustatus, menustatus }: IMyProps) {
           </div>
           <div
             className="mx-10 mb-10 cursor-pointer rounded-sm bg-[#f7e400] text-center text-2xl font-semibold text-black"
-            onClick={() => signOut()}
+            onClick={() => void signOut()}
           >
             Logout
           </div>
