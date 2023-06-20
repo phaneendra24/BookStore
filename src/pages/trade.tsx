@@ -1,6 +1,5 @@
 "use client";
 
-import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 
@@ -9,12 +8,7 @@ export default function Trade() {
   const [sellername, setsellername] = useState("");
   const [synopsis, setSynopsis] = useState("");
   const [Genre, setGenre] = useState("");
-  const { mutate, error } = api.books.postbook.useMutation();
-  const { data: session } = useSession();
-
-  if (!session) {
-    return null;
-  }
+  const { mutate } = api.books.postbook.useMutation();
 
   const postBook = (e: React.FormEvent) => {
     e.preventDefault();
