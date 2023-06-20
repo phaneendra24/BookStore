@@ -30,17 +30,19 @@ export const booksrouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        const post = ctx.prisma.books.create({
+        const post = ctx.prisma.user.update({
+          where: { id: ctx.session.user.id },
           data: {
-            bookName: input.bookname,
-            synopsis: input.synopsis,
-            genre: input.genre,
-            pages: input.pages,
-            sellername: input.sellername,
+            mybooks: {
+              create: {
+                bookName: input.bookname,
+                genre: input.genre,
+                pages: input.pages,
+                synopsis: input.synopsis,
+              },
+            },
           },
         });
-        console.log(post);
-
         return post;
       } catch (e) {
         console.log(e);

@@ -1,3 +1,5 @@
+"use client";
+
 import { useSession } from "next-auth/react";
 import React, { useRef, useState } from "react";
 import { api } from "~/utils/api";
