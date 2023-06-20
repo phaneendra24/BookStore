@@ -1,17 +1,25 @@
 import Image from "next/image";
 import Profileicon from "./profileicon";
+import { Dispatch, SetStateAction } from "react";
 
-export default function Navbar() {
+interface IMyProps {
+  menustatus: boolean;
+  setmenustatus: Dispatch<SetStateAction<boolean>>;
+}
+
+export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
   return (
     <div className="fixed flex h-fit w-screen justify-between bg-black py-3 md:px-8 md:py-5">
       <div className="flex h-full items-center justify-start">
-        <Image
-          src="/menu.svg"
-          width={0}
-          height={0}
-          alt="err load"
-          className="flex h-10 w-fit items-center justify-center"
-        />
+        <button className="" onClick={() => setmenustatus(!menustatus)}>
+          <Image
+            src="/menu.svg"
+            width={0}
+            height={0}
+            alt="err load"
+            className="flex h-10 w-fit items-center justify-center"
+          />
+        </button>
         <div className="flex  text-2xl font-medium">BookStore</div>
       </div>
       <div className="flex h-full items-center justify-between gap-10">

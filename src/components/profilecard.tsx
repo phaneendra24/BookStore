@@ -28,7 +28,7 @@ export default function Profilecard() {
   return (
     <>
       <div
-        className="mt-5 flex w-52 flex-col justify-start rounded-lg bg-stone-600 px-10 py-5"
+        className="mt-5 flex w-52 flex-col justify-start rounded-lg px-10 py-5"
         onClick={() => setToggleon(true)}
       >
         <Image
