@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Profileicon from "./profileicon";
-import { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 interface IMyProps {
   menustatus: boolean;
