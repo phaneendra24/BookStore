@@ -1,6 +1,6 @@
 "use client";
 
-import { signOut, useSession } from "next-auth/react";
+import { signOut } from "next-auth/react";
 import type { Dispatch, SetStateAction } from "react";
 import Profilecard from "./profilecard";
 
