@@ -24,9 +24,9 @@ export default function Trade() {
   return (
     <div className="relative">
       <div className="bg-gren-400 flex h-full flex-col gap-5">
-        <header className="text-3xl">Sell Your Books Online</header>
+        <header className="text-2xl">Sell Your Books Online</header>
         <form onSubmit={(e) => postBook(e)} className="flex flex-col gap-10">
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             <span className="w-1/4">BookName</span>
             <input
               type="text"
@@ -35,6 +35,9 @@ export default function Trade() {
               className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
               placeholder="name of the book"
             />
+          </div>
+          <div className="flex items-center">
+            <span className="w-1/4">Genre</span>
             <select
               onChange={(e) => {
                 setGenre(e.target.value);
