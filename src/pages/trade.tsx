@@ -23,20 +23,23 @@ export default function Trade() {
 
   return (
     <div className="relative">
-      <div className="bg-gren-400 flex h-full flex-col gap-5">
+      <div className="bg-gren-400 flex h-full flex-col gap-3">
         <header className="text-2xl">Sell Your Books Online</header>
-        <form onSubmit={(e) => postBook(e)} className="flex flex-col gap-10">
-          <div className="flex items-center gap-2">
+        <form
+          onSubmit={(e) => postBook(e)}
+          className="flex flex-col items-start gap-4"
+        >
+          <div className="flex  w-full flex-col items-start gap-2">
             <span className="w-1/4">BookName</span>
             <input
               type="text"
               required
               onChange={(e) => setbookname(e.target.value)}
-              className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
+              className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-[50%]"
               placeholder="name of the book"
             />
           </div>
-          <div className="flex items-center">
+          <div className="flex  w-full flex-col items-start">
             <span className="w-1/4">Genre</span>
             <select
               onChange={(e) => {
@@ -56,21 +59,22 @@ export default function Trade() {
               </option>
             </select>
           </div>
-          <div className="flex items-center ">
+          <div className="flex  w-full flex-col items-start">
             <span className="w-1/4">Synopsis </span>
             <textarea
               onChange={(e) => setSynopsis(e.target.value)}
               placeholder="Describe your books in few words"
-              className="synopsis h-28 w-3/4  resize-none border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 sm:w-2/4"
+              required
+              className=" h-28 w-[90%] resize-none border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-[50%]"
             ></textarea>
           </div>
 
-          <div className="flex">
-            <span className="w-1/4">Author Name</span>
+          <div className="flex  w-full flex-col items-start">
+            <span className="">Author Name</span>
             <input
               onChange={(e) => setsellername(e.target.value)}
               type="text"
-              className="min-w-[40%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400"
+              className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-2/4"
             />
           </div>
           <button
