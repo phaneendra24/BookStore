@@ -1,55 +1,36 @@
 import Image from "next/image";
+import { number, string } from "zod";
 import { api } from "~/utils/api";
 
-export default function BooksCard() {
-  const { data, isLoading } = api.books.getAllBooks.useQuery();
-  console.log(data);
+import { motion } from "framer-motion";
 
+type cardprop = {
+  key: string;
+  bookname: string;
+};
+
+export default function BooksCard({ key, bookname }: cardprop) {
   return (
-    <div className="no-scrollbar grid h-full w-full grow grid-cols-1 gap-3 overflow-scroll sm:grid-cols-2 md:grid-cols-3">
-      {isLoading ? (
-        <>
-          <div className="mb-5 flex flex-col items-center justify-center">
-            <div className=" mb-5 h-52  w-64 animate-pulse bg-[#252525]"></div>
-            <div className="h-6 w-44 bg-[#252525]"></div>
-          </div>
-          <div className="mb-5 flex flex-col items-center justify-center">
-            <div className=" mb-5 h-52  w-64 animate-pulse bg-[#252525]"></div>
-            <div className="h-6 w-44 bg-[#252525]"></div>
-          </div>
-          <div className="mb-5 flex flex-col items-center justify-center">
-            <div className=" mb-5 h-52  w-64 animate-pulse bg-[#252525]"></div>
-            <div className="h-6 w-44 bg-[#252525]"></div>
-          </div>
-          <div className="mb-5 flex flex-col items-center justify-center">
-            <div className=" mb-5 h-52  w-64 animate-pulse bg-[#252525]"></div>
-            <div className="h-6 w-44 bg-[#252525]"></div>
-          </div>
-          <div className="mb-5 flex flex-col items-center justify-center">
-            <div className=" mb-5 h-52  w-64 animate-pulse bg-[#252525]"></div>
-            <div className="h-6 w-44 bg-[#252525]"></div>
-          </div>
-          <div className="mb-5 flex flex-col items-center justify-center">
-            <div className=" mb-5 h-52  w-64 animate-pulse bg-[#252525]"></div>
-            <div className="h-6 w-44 bg-[#252525]"></div>
-          </div>
-        </>
-      ) : (
-        data?.map((i) => {
-          return (
-            <div key={i.id} className="h-fit w-fit ">
-              <Image
-                src="/bookimage.jpeg"
-                width={60}
-                height={60}
-                alt="no"
-                className="h-60 w-64"
-              />
-              {i.bookName}
-            </div>
-          );
-        })
-      )}
-    </div>
+    <motion.div
+      key={key}
+      className="hover: mt-5 flex cursor-pointer flex-col items-center justify-center"
+      whileHover={{ scale: 1.1 }}
+      whileTap={{
+        scale: 1,
+      }}
+    >
+      <Image
+        src="/bookimage.jpeg"
+        width={60}
+        height={60}
+        alt="no"
+        className="h-60 w-56"
+      />
+      <h1 className="text-xl">{bookname}</h1>
+      <p className="text-gray-400">by : wager</p>
+      <div>
+        Price : <span className="animate-bounce text-yellow-400">1200</span>.Rs
+      </div>
+    </motion.div>
   );
 }
