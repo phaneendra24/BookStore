@@ -12,7 +12,7 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className="w-full">
+      <main className="flex w-full flex-col justify-center">
         <div className="w-full">
           <Genresuggs />
         </div>

@@ -63,7 +63,9 @@ model books {
   synopsis   String
   genre      String
   pages      Int
-  sellername String
-  owner      User   @relation(fields: [sellername], references: [id])
-  @@index([sellername])
+  price      Int
+  authorname String
+  owner      User   @relation(fields: [id], references: [id])
+
+  @@index([id])
 }

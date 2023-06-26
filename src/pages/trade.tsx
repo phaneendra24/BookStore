@@ -5,7 +5,8 @@ import { api } from "~/utils/api";
 
 export default function Trade() {
   const [bookname, setbookname] = useState("");
-  const [sellername, setsellername] = useState("");
+  const [authorname, setauthorname] = useState("");
+  const [price, setprice] = useState(0);
   const [synopsis, setSynopsis] = useState("");
   const [Genre, setGenre] = useState("");
   const { mutate } = api.books.postbook.useMutation();
@@ -17,7 +18,8 @@ export default function Trade() {
       synopsis: synopsis,
       genre: Genre,
       pages: 100,
-      sellername: sellername,
+      authorname: authorname,
+      price: price,
     });
   };
 
@@ -39,25 +41,37 @@ export default function Trade() {
               placeholder="name of the book"
             />
           </div>
-          <div className="flex  w-full flex-col items-start">
-            <span className="w-1/4">Genre</span>
-            <select
-              onChange={(e) => {
-                setGenre(e.target.value);
-              }}
-              className="block w-fit rounded-lg border-2 border-[#f7e400]
+          <div className="flex  w-full gap-5">
+            <div>
+              <span className="w-1/4">Genre</span>
+              <select
+                onChange={(e) => {
+                  setGenre(e.target.value);
+                }}
+                className="block w-fit rounded-lg border-2 border-[#f7e400]
                 bg-black p-2.5 text-sm text-gray-900  outline-none focus:ring-yellow-500 dark:bg-black dark:text-white dark:placeholder-black dark:focus:border-yellow-500
               "
-              defaultValue="default"
-            >
-              <option value="default">Choose genre</option>
-              <option value="fantasy" className="mt-2 p-2">
-                fantasy
-              </option>
-              <option value="Romance" className="mt-2 py-5">
-                Romance
-              </option>
-            </select>
+                defaultValue="default"
+              >
+                <option value="default">Choose genre</option>
+                <option value="fantasy" className="mt-2 p-2">
+                  fantasy
+                </option>
+                <option value="Romance" className="mt-2 py-5">
+                  Romance
+                </option>
+              </select>
+            </div>
+
+            <span>
+              <h1>price :</h1>
+              <input
+                type="number"
+                placeholder="enter price"
+                className=" border-[1px] border-slate-400 bg-transparent p-2 outline-none"
+                onChange={(e) => setprice(parseInt(e.target.value))}
+              />
+            </span>
           </div>
           <div className="flex  w-full flex-col items-start">
             <span className="w-1/4">Synopsis </span>
@@ -72,7 +86,7 @@ export default function Trade() {
           <div className="flex  w-full flex-col items-start">
             <span className="">Author Name</span>
             <input
-              onChange={(e) => setsellername(e.target.value)}
+              onChange={(e) => setauthorname(e.target.value)}
               type="text"
               className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-2/4"
             />

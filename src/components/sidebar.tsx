@@ -31,7 +31,6 @@ export default function Sidebar() {
     },
   ];
   const router = useRouter();
-  console.log(router.asPath);
 
   return (
     <div className="fixed top-16 w-1/12 bg-black px-2 text-white md:px-8">
