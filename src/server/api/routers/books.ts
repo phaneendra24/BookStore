@@ -26,22 +26,22 @@ export const booksrouter = createTRPCRouter({
     }
   }),
 
-  getDetailsofBook: publicProcedure
+  sellerdata: publicProcedure
     .input(
       z.object({
         id: z.string(),
       })
     )
-    .mutation(async ({ ctx, input }) => {
+    .query(async ({ ctx, input }) => {
       try {
-        const data = await ctx.prisma.books.findUnique({
+        const data = await ctx.prisma.user.findUnique({
           where: {
             id: input.id,
           },
         });
         return data;
       } catch (e) {
-        return e;
+        console.log(e);
       }
     }),
 
@@ -59,16 +59,18 @@ export const booksrouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       try {
         const post = await ctx.prisma.user.update({
-          where: { id: ctx.session.user.id },
+          where: {
+            email: ctx.session.user.email!,
+          },
           data: {
             mybooks: {
               create: {
-                bookName: input.bookname,
-                synopsis: input.synopsis,
-                pages: input.pages,
-                genre: input.genre,
                 authorname: input.authorname,
+                bookName: input.bookname,
+                genre: input.genre,
+                pages: input.pages,
                 price: input.price,
+                synopsis: input.synopsis,
               },
             },
           },
