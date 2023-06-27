@@ -71,7 +71,7 @@ export default function Page({ slug }: ptype) {
 }
 
 export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
-  const slug = query.slug;
+  const slug = await query.slug;
 
   return { props: { slug } };
 };

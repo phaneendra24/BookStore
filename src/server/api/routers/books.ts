@@ -1,4 +1,4 @@
-import { ZodAny, any, string, z } from "zod";
+import { z } from "zod";
 
 import {
   createTRPCRouter,
@@ -6,14 +6,14 @@ import {
   publicProcedure,
 } from "~/server/api/trpc";
 
-type bookdet = {
-  bookName: string;
-  genre: string;
-  id: string;
-  pages: number;
-  sellername: string;
-  synopsis: string;
-};
+// type bookdet = {
+//   bookName: string;
+//   genre: string;
+//   id: string;
+//   pages: number;
+//   sellername: string;
+//   synopsis: string;
+// };
 
 export const booksrouter = createTRPCRouter({
   getAllBooks: publicProcedure.query(async ({ ctx }) => {
