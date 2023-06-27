@@ -12,7 +12,7 @@ export default function Page() {
     id: router.query.slug as string,
   });
   // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-  const profileurl = data?.image!;
+  const profileurl = data?.image as string;
   return (
     <div className="flex w-full">
       <div className="flex w-full justify-between">
