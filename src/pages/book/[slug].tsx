@@ -1,5 +1,6 @@
+/* eslint-disable  @typescript-eslint/no-non-null-assertion */
+
 import { motion } from "framer-motion";
-import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
