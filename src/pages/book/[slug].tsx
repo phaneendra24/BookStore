@@ -1,5 +1,3 @@
-/* eslint-disable  @typescript-eslint/no-non-null-assertion */
-
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
@@ -8,15 +6,12 @@ import Bookdata from "~/components/bookdata";
 
 import { api } from "~/utils/api";
 
-type ptype = {
-  slug: string;
-};
-
-export default function Page({ slug }: ptype) {
+export default function Page() {
   const router = useRouter();
   const { data, isLoading } = api.books.sellerdata.useQuery({
     id: router.query.slug as string,
   });
+  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
   const profileurl = data?.image!;
   return (
     <div className="flex w-full">
@@ -68,7 +63,7 @@ export default function Page({ slug }: ptype) {
         </div>
       </div>
 
-      <Bookdata id={slug} />
+      <Bookdata id={router.query.slug} />
     </div>
   );
 }
