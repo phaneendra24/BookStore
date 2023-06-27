@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import Bookdata from "~/components/bookdata";
 
 import { api } from "~/utils/api";
@@ -11,8 +12,9 @@ type ptype = {
 };
 
 export default function Page({ slug }: ptype) {
+  const router = useRouter();
   const { data, isLoading } = api.books.sellerdata.useQuery({
-    id: slug,
+    id: router.query.slug as string,
   });
   const profileurl = data?.image!;
   return (
@@ -69,9 +71,3 @@ export default function Page({ slug }: ptype) {
     </div>
   );
 }
-
-export const getServerSideProps: GetServerSideProps<{}> = async ({ query }) => {
-  const slug = await query.slug;
-
-  return { props: { slug } };
-};
