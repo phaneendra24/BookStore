@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { api } from "~/utils/api";
 
 type pageprops = {
   id: string | string[] | undefined;

@@ -2,8 +2,6 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import Bookdata from "~/components/bookdata";
 
 import { api } from "~/utils/api";
 
@@ -15,6 +13,9 @@ export default function Page() {
     },
     { enabled: !!router.query.slug }
   );
+  if (!data) {
+    return null;
+  }
 
   return (
     <div className="flex w-full">
@@ -55,7 +56,7 @@ export default function Page() {
               <></>
             ) : (
               <Image
-                src={`${data ? data.image : ""}`}
+                src={data.image!}
                 alt="loading"
                 width={40}
                 height={40}
