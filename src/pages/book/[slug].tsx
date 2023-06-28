@@ -2,17 +2,20 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 import Bookdata from "~/components/bookdata";
 
 import { api } from "~/utils/api";
 
 export default function Page() {
   const router = useRouter();
-  const { data, isLoading } = api.books.sellerdata.useQuery({
-    id: router.query.slug as string,
-  });
-  // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-  const profileurl = data?.image as string;
+  const { data, isLoading } = api.books.sellerdata.useQuery(
+    {
+      id: router.query.slug as string,
+    },
+    { enabled: !!router.query.slug }
+  );
+
   return (
     <div className="flex w-full">
       <div className="flex w-full justify-between">
@@ -52,8 +55,8 @@ export default function Page() {
               <></>
             ) : (
               <Image
-                src={profileurl}
-                alt="bad"
+                src={`${data ? data.image : ""}`}
+                alt="loading"
                 width={40}
                 height={40}
                 className="rounded-full"
@@ -63,7 +66,7 @@ export default function Page() {
         </div>
       </div>
 
-      <Bookdata id={router.query.slug} />
+      {/* <Bookdata /> */}
     </div>
   );
 }
