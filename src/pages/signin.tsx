@@ -1,17 +1,8 @@
-import { signIn, useSession } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
 export default function Signin() {
-  const { data: session } = useSession();
-  const router = useRouter();
-
-  useEffect(() => {
-    if (session) {
-      router.push("/");
-    }
-  }, [session]);
-
   return (
     <div className="flex h-[60vh] w-full flex-col items-center justify-center">
       <span>Login to proceed</span>
@@ -20,4 +11,19 @@ export default function Signin() {
       </span>
     </div>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
 }

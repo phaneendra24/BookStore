@@ -2,13 +2,8 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
-type pageprops = {
-  id: string | string[] | undefined;
-};
-
 export default function Bookdata() {
   const router = useRouter();
-  const { data: session } = useSession();
 
   const { data, isLoading } = api.books.getEachBookData.useQuery(
     {
@@ -27,7 +22,7 @@ export default function Bookdata() {
     );
   }
 
-  const checkIn = async () => {
+  const checkIn = () => {
     console.log("you bought the item");
   };
 
