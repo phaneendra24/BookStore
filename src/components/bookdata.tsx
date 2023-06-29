@@ -1,5 +1,4 @@
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
@@ -28,10 +27,8 @@ export default function Bookdata() {
     );
   }
 
-  const checkIn = () => {
-    if (!session) {
-      router.push("/signin");
-    }
+  const checkIn = async () => {
+    console.log("you bought the item");
   };
 
   return (

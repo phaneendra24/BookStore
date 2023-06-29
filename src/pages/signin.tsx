@@ -1,13 +1,17 @@
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-export default async function Signin() {
+export default function Signin() {
   const { data: session } = useSession();
   const router = useRouter();
 
-  if (session) {
-    await router.push("/");
-  }
+  useEffect(() => {
+    if (session) {
+      router.push("/");
+    }
+  }, [session]);
+
   return (
     <div className="flex h-[60vh] w-full flex-col items-center justify-center">
       <span>Login to proceed</span>

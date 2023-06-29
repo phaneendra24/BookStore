@@ -1,5 +1,3 @@
-"use client";
-
 import { signOut } from "next-auth/react";
 import type { Dispatch, SetStateAction } from "react";
 import Profilecard from "./profilecard";

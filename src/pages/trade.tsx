@@ -1,18 +1,8 @@
-"use client";
-
-import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/router";
+import { getSession } from "next-auth/react";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 
 export default function Trade() {
-  const { data: session } = useSession();
-  const router = useRouter();
-
-  if (!session) {
-    router.push("/signin");
-  }
-
   const [bookname, setbookname] = useState("");
   const [authorname, setauthorname] = useState("");
   const [price, setprice] = useState(0);
@@ -112,4 +102,19 @@ export default function Trade() {
       <div className="absolute top-20 z-[-1]  h-40 w-40 bg-yellow-400"></div>
     </div>
   );
+}
+
+export async function getServerSideProps(context: any) {
+  const session = await getSession(context);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/signin",
+        permanent: false,
+      },
+    };
+  }
+  return {
+    props: { session },
+  };
 }
