@@ -1,10 +1,12 @@
-import { getSession } from "next-auth/react";
+import { GetSessionParams, getSession } from "next-auth/react";
 
 export default function Messages() {
   return <>Messages</>;
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
   const session = await getSession(context);
   if (!session) {
     return {

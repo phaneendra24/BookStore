@@ -1,4 +1,9 @@
-import { getSession, signIn, useSession } from "next-auth/react";
+import {
+  GetSessionParams,
+  getSession,
+  signIn,
+  useSession,
+} from "next-auth/react";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 
@@ -13,7 +18,9 @@ export default function Signin() {
   );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
   const session = await getSession(context);
   if (session) {
     return {

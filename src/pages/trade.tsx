@@ -1,4 +1,4 @@
-import { getSession } from "next-auth/react";
+import { GetSessionParams, getSession } from "next-auth/react";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 
@@ -104,7 +104,9 @@ export default function Trade() {
   );
 }
 
-export async function getServerSideProps(context: any) {
+export async function getServerSideProps(
+  context: GetSessionParams | undefined
+) {
   const session = await getSession(context);
   if (!session) {
     return {
