@@ -1,9 +1,18 @@
 "use client";
 
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { api } from "~/utils/api";
 
 export default function Trade() {
+  const { data: session } = useSession();
+  const router = useRouter();
+
+  if (!session) {
+    router.push("/signin");
+  }
+
   const [bookname, setbookname] = useState("");
   const [authorname, setauthorname] = useState("");
   const [price, setprice] = useState(0);

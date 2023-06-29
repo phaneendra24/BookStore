@@ -33,24 +33,16 @@ export const booksrouter = createTRPCRouter({
       })
     )
     .query(async ({ ctx, input }) => {
-      try {
-        // const boo = await ctx.prisma.books.deleteMany();
-        const book = await ctx.prisma.books.findUnique({
-          where: {
-            id: input.id,
-          },
-        });
-        return book;
-      } catch (e) {
-        return e;
-      }
+      const data = await ctx.prisma.books.findUnique({
+        where: {
+          id: input.id,
+        },
+      });
+      return data;
     }),
+
   sellerdata: publicProcedure
-    .input(
-      z.object({
-        id: z.string(),
-      })
-    )
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       try {
         const data = await ctx.prisma.user.findUnique({

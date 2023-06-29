@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import Bookdata from "~/components/bookdata";
 
 import { api } from "~/utils/api";
 
@@ -18,7 +19,7 @@ export default function Page() {
   }
 
   return (
-    <div className="flex w-full">
+    <div className="flex w-full flex-col">
       <div className="flex w-full justify-between">
         <Link href="/">
           <motion.span className="flex cursor-pointer">
@@ -67,7 +68,7 @@ export default function Page() {
         </div>
       </div>
 
-      {/* <Bookdata /> */}
+      <Bookdata />
     </div>
   );
 }
