@@ -108,7 +108,9 @@ export async function getServerSideProps(
   context: GetSessionParams | undefined
 ) {
   const session = await getSession(context);
-  if (!session) {
+  console.log(session);
+
+  if (session === null) {
     return {
       redirect: {
         destination: "/signin",
