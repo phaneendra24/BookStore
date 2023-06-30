@@ -1,11 +1,4 @@
-import {
-  GetSessionParams,
-  getSession,
-  signIn,
-  useSession,
-} from "next-auth/react";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { GetSessionParams, getSession, signIn } from "next-auth/react";
 
 export default function Signin() {
   return (
