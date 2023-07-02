@@ -1,5 +1,6 @@
-import { GetSessionParams, getSession } from "next-auth/react";
+import { GetServerSideProps, GetServerSidePropsContext } from "next";
 import React, { useState } from "react";
+import { Getserverauthsession } from "~/server/customs/getserverauth";
 import { api } from "~/utils/api";
 
 export default function Trade() {
@@ -104,21 +105,18 @@ export default function Trade() {
   );
 }
 
-export async function getServerSideProps(
-  context: GetSessionParams | undefined
-) {
-  const session = await getSession(context);
-  console.log(session);
-
-  if (session === null) {
+export const getServerSideProps: GetServerSideProps = async (
+  ctx: GetServerSidePropsContext
+) => {
+  const session = await Getserverauthsession(ctx);
+  if (!session) {
     return {
       redirect: {
         destination: "/signin",
         permanent: false,
       },
+      props: {},
     };
   }
-  return {
-    props: { session },
-  };
-}
+  return { props: { session } };
+};

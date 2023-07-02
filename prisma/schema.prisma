@@ -59,13 +59,14 @@ model VerificationToken {
 
 model books {
   id         String @id @default(cuid())
+  bookid     String @unique
   bookName   String
   synopsis   String
   genre       String
   pages      Int
   price      Int
   authorname String
-  owner      User   @relation(fields: [id], references: [id])
+  owner      User   @relation(fields: [bookid], references: [id])
 
   @@index([id])
 }
