@@ -32,7 +32,10 @@ export default function Profileicon() {
         ) : (
           <div
             className="rounded-lg border-[2px] border-slate-600 p-2"
-            onClick={() => void signIn()}
+            onClick={() => {
+              setauthcard(false);
+              void signIn();
+            }}
           >
             Signin
           </div>
