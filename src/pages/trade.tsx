@@ -1,7 +1,5 @@
-import type { GetServerSideProps, GetServerSidePropsContext } from "next";
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
-import { Getserverauthsession } from "~/server/customs/getserverauth";
 import { api } from "~/utils/api";
 import Signin from "./signin";
 
