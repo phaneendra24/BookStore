@@ -59,7 +59,7 @@ export default function Page() {
               <></>
             ) : (
               <Image
-                src={data.image!}
+                src={data.image ?? ""}
                 alt="loading"
                 width={40}
                 height={40}

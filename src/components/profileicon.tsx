@@ -43,7 +43,7 @@ export default function Profileicon() {
           <div className="flex flex-col text-xs">
             <span>
               <Image
-                src={data?.user.image!}
+                src={data?.user.image ?? ""}
                 alt="err loading"
                 width={30}
                 height={30}
