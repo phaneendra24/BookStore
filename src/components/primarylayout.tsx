@@ -1,5 +1,3 @@
-"use client";
-
 import Navbar from "./Navbar";
 import Sidebar from "./sidebar";
 import MenuCard from "./menucard";

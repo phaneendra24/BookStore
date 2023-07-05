@@ -1,9 +1,11 @@
 import { GetServerSideProps, GetServerSidePropsContext } from "next";
+import { useSession } from "next-auth/react";
 import React, { useState } from "react";
 import { Getserverauthsession } from "~/server/customs/getserverauth";
 import { api } from "~/utils/api";
 
 export default function Trade() {
+  const { data: session } = useSession();
   const [bookname, setbookname] = useState("");
   const [authorname, setauthorname] = useState("");
   const [price, setprice] = useState(0);
@@ -22,7 +24,6 @@ export default function Trade() {
       price: price,
     });
   };
-
   return (
     <div className="relative">
       <div className="bg-gren-400 flex h-full flex-col gap-3">

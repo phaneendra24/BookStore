@@ -3,14 +3,8 @@ import { api } from "~/utils/api";
 
 export default function Bookdata() {
   const router = useRouter();
-
   const { data, isLoading } = api.books.getEachBookData.useQuery(
-    {
-      id: router.query.slug as string,
-    },
-    {
-      enabled: !!router.query.slug,
-    }
+    router.query.slug as string
   );
   if (!data || isLoading) {
     return (
