@@ -1,7 +1,7 @@
-import React from "react";
+import { useSession } from "next-auth/react";
+import Signin from "./signin";
 
-type Props = {};
-
-export default function messages({}: Props) {
-  return <div>messages</div>;
+export default function messages() {
+  const { data: session } = useSession();
+  return <div>{session ? <>messages</> : <Signin />}</div>;
 }
