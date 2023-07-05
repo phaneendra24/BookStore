@@ -23,7 +23,7 @@ export default function Profileicon() {
       >
         {data ? (
           <Image
-            src={data?.user.image!}
+            src={data?.user.image ?? ""}
             alt="err loading"
             width={30}
             height={30}
