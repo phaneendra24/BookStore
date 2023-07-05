@@ -1,4 +1,6 @@
-import { signIn, useSession } from "next-auth/react";
+/* eslint-disable  @typescript-eslint/no-non-null-assertion */
+
+import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -13,7 +15,6 @@ export default function Profileicon() {
       setauthcard(false);
     }
   };
-
   return (
     <div className="">
       <div
@@ -52,7 +53,12 @@ export default function Profileicon() {
             </span>
             <span>{data?.user.email}</span>
           </div>
-          <button className="w-full py-2 hover:bg-[#504d4d]">Signout</button>
+          <button
+            onClick={() => void signOut()}
+            className="w-full py-2 hover:bg-[#504d4d]"
+          >
+            Signout
+          </button>
         </div>
       ) : (
         <></>
