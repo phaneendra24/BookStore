@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 export default function Wishlist() {
   const { data: session } = useSession();
   const { data } = api.update.wishlistitems.useQuery();
-  console.log(data);
 
   if (!data) {
     return null;

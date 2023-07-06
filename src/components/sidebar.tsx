@@ -31,9 +31,6 @@ export default function Sidebar() {
     },
   ];
   const router = useRouter();
-  if (router.asPath == `${options[0]?.link}`) {
-    console.log(router.asPath);
-  }
 
   return (
     <div className="fixed top-16  w-1/12 px-2 text-white md:px-8">
@@ -47,7 +44,7 @@ export default function Sidebar() {
                   : ""
               } my-10 flex w-10 cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:bg-[#292929]`}
             >
-              <span className="">
+              <span className="h-fit  w-fit">
                 <Image
                   src={`${i.src}`}
                   width={30}
