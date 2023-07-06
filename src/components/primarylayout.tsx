@@ -17,7 +17,7 @@ export default function PrimaryLayout({ children }: { children: JSX.Element }) {
           onClick={() => setmenustatus(false)}
         >
           <Sidebar />
-          <div className=" ml-20 mr-3 mt-24 w-full overflow-hidden sm:ml-32 sm:mr-10">
+          <div className=" ml-14 mr-2 mt-24 w-full overflow-hidden sm:ml-20 sm:mr-5">
             {children}
           </div>
         </div>

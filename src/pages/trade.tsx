@@ -24,7 +24,7 @@ export default function Trade() {
     });
   };
   return (
-    <div className="relative">
+    <div className="relative ml-2 sm:ml-10">
       {!session ? (
         <Signin />
       ) : (
@@ -41,19 +41,19 @@ export default function Trade() {
                   type="text"
                   required
                   onChange={(e) => setbookname(e.target.value)}
-                  className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-[50%]"
+                  className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-orange-700 lg:w-[50%]"
                   placeholder="name of the book"
                 />
               </div>
-              <div className="flex  w-full gap-5">
+              <div className="flex w-full flex-col gap-5 sm:flex-row">
                 <div>
                   <span className="w-1/4">Genre</span>
                   <select
                     onChange={(e) => {
                       setGenre(e.target.value);
                     }}
-                    className="block w-fit rounded-lg border-2 border-[#f7e400]
-                bg-black p-2.5 text-sm text-gray-900  outline-none focus:ring-yellow-500 dark:bg-black dark:text-white dark:placeholder-black dark:focus:border-yellow-500
+                    className="block w-fit rounded-lg border-2 border-orange-700
+                bg-black p-2.5 text-sm text-gray-900  outline-none focus:ring-orange-700 dark:bg-black dark:text-white dark:placeholder-black dark:focus:border-orange-500
               "
                     defaultValue="default"
                   >
@@ -72,7 +72,7 @@ export default function Trade() {
                   <input
                     type="number"
                     placeholder="enter price"
-                    className=" border-[1px] border-slate-400 bg-transparent p-2 outline-none"
+                    className=" border-[1px] bg-transparent p-2 outline-none focus:border-orange-700"
                     onChange={(e) => setprice(parseInt(e.target.value))}
                   />
                 </span>
@@ -83,7 +83,7 @@ export default function Trade() {
                   onChange={(e) => setSynopsis(e.target.value)}
                   placeholder="Describe your books in few words"
                   required
-                  className=" h-28 w-[90%] resize-none border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-[50%]"
+                  className=" h-28 w-[90%] resize-none border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-orange-700 lg:w-[50%]"
                 ></textarea>
               </div>
 
@@ -92,19 +92,19 @@ export default function Trade() {
                 <input
                   onChange={(e) => setauthorname(e.target.value)}
                   type="text"
-                  className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-yellow-400 lg:w-2/4"
+                  className="w-[90%] border-[1px] border-slate-300 bg-transparent p-2 outline-none focus:border-orange-700 lg:w-2/4"
                 />
               </div>
               <button
                 type="submit"
                 onClick={() => postBook}
-                className="w-fit rounded-sm bg-[#f7e400] p-2 px-2 font-semibold text-black"
+                className="w-fit rounded-sm bg-orange-700 p-2 px-2 font-semibold text-black"
               >
                 Open to sell
               </button>
             </form>
           </div>
-          <div className="absolute top-20 z-[-1]  h-40 w-40 bg-yellow-400"></div>
+          <div className="bg-orange-700-400 absolute top-20  z-[-1] h-40 w-40"></div>
         </>
       )}
     </div>

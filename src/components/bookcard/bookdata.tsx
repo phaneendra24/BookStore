@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 import Wishlist from "./wishlistbtn";
 

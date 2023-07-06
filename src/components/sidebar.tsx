@@ -31,13 +31,22 @@ export default function Sidebar() {
     },
   ];
   const router = useRouter();
+  if (router.asPath == `${options[0]?.link}`) {
+    console.log(router.asPath);
+  }
 
   return (
-    <div className="fixed top-16 w-1/12 bg-black px-2 text-white md:px-8">
+    <div className="fixed top-16  w-1/12 px-2 text-white md:px-8">
       {options.map((i) => {
         return (
           <Link href={i.link} key={i.name}>
-            <div className="my-10 flex w-fit cursor-pointer flex-col items-start justify-center  text-xs font-thin hover:border-b-2 hover:bg-[#292929] hover:decoration-black">
+            <div
+              className={`${
+                router.asPath == `${i.link}`
+                  ? "rounded-sm bg-[#ffffff1a] p-1"
+                  : ""
+              } my-10 flex w-10 cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:bg-[#292929]`}
+            >
               <span className="">
                 <Image
                   src={`${i.src}`}
@@ -47,7 +56,7 @@ export default function Sidebar() {
                   className={`${router.asPath == i.src ? "underline" : ""}`}
                 />
               </span>
-              <span>{i.name}</span>
+              <span className="text-[10px]">{i.name}</span>
             </div>
           </Link>
         );

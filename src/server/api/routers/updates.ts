@@ -16,6 +16,24 @@ export const updateRouter = createTRPCRouter({
       return likedata;
     }),
 
+  wishlistitems: protectedProcedure.query(async ({ ctx }) => {
+    console.log("started");
+
+    try {
+      const data = await ctx.prisma.books.findMany({
+        where: {
+          wishlist: {
+            some: {
+              userId: ctx.session.user.id,
+            },
+          },
+        },
+      });
+      return data;
+    } catch (error) {
+      return null;
+    }
+  }),
   updatedlike: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {

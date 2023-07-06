@@ -29,7 +29,7 @@ export default function BooksCard({ id, bookname }: cardprop) {
         <h1 className="text-xl">{bookname}</h1>
         <p className="text-gray-400">{}</p>
         <div>
-          Price : <span className="animate-bounce text-yellow-400">1200</span>
+          Price : <span className="animate-bounce text-orange-700">1200</span>
           .Rs
         </div>
       </motion.div>
