@@ -13,9 +13,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main className="flex w-full flex-col justify-center">
-        <div className="w-full">
-          <Genresuggs />
-        </div>
+        <div className="w-full">{/* <Genresuggs /> */}</div>
         <div className="w-full">
           <Mainfeed />
         </div>

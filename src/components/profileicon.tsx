@@ -16,7 +16,7 @@ export default function Profileicon() {
     }
   };
   return (
-    <div className="">
+    <div className="w-fit">
       <div
         className="h-fit w-fit cursor-pointer"
         onClick={() => setauthcard(!authcard)}
@@ -27,7 +27,7 @@ export default function Profileicon() {
             alt="err loading"
             width={30}
             height={30}
-            className="rounded-full"
+            className="h-10 w-10 rounded-full"
           />
         ) : (
           <div

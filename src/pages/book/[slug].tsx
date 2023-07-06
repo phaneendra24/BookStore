@@ -1,21 +1,23 @@
-/* eslint-disable  @typescript-eslint/no-non-null-assertion */
-
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import Bookdata from "~/components/bookdata";
-
+import Bookdata from "~/components/bookcard/bookdata";
 import { api } from "~/utils/api";
+type props = {
+  id: string;
+};
 
 export default function Page() {
   const router = useRouter();
+  const slug = router.query.slug;
   const { data, isLoading } = api.books.sellerdata.useQuery(
     {
-      id: router.query.slug as string,
+      id: slug as string,
     },
     { enabled: !!router.query.slug }
   );
+
   if (!data) {
     return null;
   }
@@ -59,7 +61,7 @@ export default function Page() {
               <></>
             ) : (
               <Image
-                src={data.image ?? ""}
+                src={data.image! ?? ""}
                 alt="loading"
                 width={40}
                 height={40}
@@ -70,7 +72,7 @@ export default function Page() {
         </div>
       </div>
 
-      <Bookdata />
+      <Bookdata slug={slug} />
     </div>
   );
 }

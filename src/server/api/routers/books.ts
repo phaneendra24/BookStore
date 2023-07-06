@@ -9,9 +9,7 @@ import {
 export const booksrouter = createTRPCRouter({
   getAllBooks: publicProcedure.query(async ({ ctx }) => {
     try {
-      // const boo = await ctx.prisma.books.deleteMany();
       const books = await ctx.prisma.books.findMany();
-      console.log(books);
       return books;
     } catch (e) {
       return null;
@@ -37,19 +35,20 @@ export const booksrouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       try {
-        const data = await ctx.prisma.books.findUnique({
+        console.log("input", input);
+        const bookdata = await ctx.prisma.books.findUnique({
           where: {
             id: input.id,
           },
         });
-        const seller = await ctx.prisma.user.findUnique({
+        const data = await ctx.prisma.user.findUnique({
           where: {
-            id: data?.bookid,
+            id: bookdata?.bookid,
           },
         });
-        return seller;
-      } catch (e) {
-        console.log(e);
+        return data;
+      } catch (error) {
+        return null;
       }
     }),
 
@@ -66,7 +65,6 @@ export const booksrouter = createTRPCRouter({
     )
     .mutation(async ({ ctx, input }) => {
       try {
-        console.log(ctx.session.user.id);
         // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 
         const post = await ctx.prisma.user.update({
@@ -86,24 +84,9 @@ export const booksrouter = createTRPCRouter({
             },
           },
         });
-        console.log(post);
-
         return post;
       } catch (e) {
-        console.log(e);
         return e;
       }
     }),
 });
-
-// data: {
-//   mybooks: {
-//     create: {
-//       authorname: input.authorname,
-//       bookName: input.bookname,
-//       genre: input.genre,
-//       pages: input.pages,
-//       price: input.price,
-//       synopsis: input.synopsis,
-//     },
-//   },

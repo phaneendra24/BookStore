@@ -10,7 +10,7 @@ export default function MenuCard({ setmenustatus, menustatus }: IMyProps) {
   return (
     <>
       {menustatus ? (
-        <div className="fixed left-0 z-10 flex h-full w-1/5 flex-col justify-between bg-[#0f0f0f]">
+        <div className="fixed left-0 z-10 flex h-full w-2/5 flex-col justify-between bg-[#0f0f0f] sm:w-1/5">
           <div className="mt-10 flex h-10 w-full justify-end py-1  hover:p-2 sm:px-2">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@ export default function MenuCard({ setmenustatus, menustatus }: IMyProps) {
             <Profilecard />
           </div>
           <div
-            className="mx-10 mb-10 cursor-pointer rounded-sm bg-[#f7e400] text-center text-2xl font-semibold text-black"
+            className="mx-10 mb-10 cursor-pointer rounded-sm border-y-[0.5px]   py-1 text-center text-xl font-semibold"
             onClick={() => void signOut()}
           >
             Logout

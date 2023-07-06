@@ -8,7 +8,7 @@ interface IMyProps {
 }
 export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
   return (
-    <div className="fixed z-10 flex h-fit w-screen justify-between bg-black py-3 md:px-8 md:py-5">
+    <div className="fixed z-10 flex h-fit w-screen justify-between bg-black px-5 py-3 md:px-8 md:py-5">
       <div className="flex h-full items-center justify-start">
         <button className="" onClick={() => setmenustatus(!menustatus)}>
           <Image
@@ -21,8 +21,8 @@ export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
         </button>
         <div className="flex  text-2xl font-medium">BookStore</div>
       </div>
-      <div className="flex h-full items-center justify-between gap-10">
-        <div className="relative">
+      <div className="flex h-full w-fit items-center gap-2">
+        <div className="relative ">
           <Image
             src="/searchicon.svg"
             alt="err loading"
