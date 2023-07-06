@@ -9,15 +9,11 @@ type Props = {
 export default function Wishlist({ id }: Props) {
   const [wishstatus, setwish] = useState(Boolean);
   const router = useRouter();
-  // const { data } = api.update.userLikedstatus.useQuery(
-  //   router.query.slug as string
-  // );
 
   const { mutate, data } = api.update.updatedlike.useMutation();
   const addTowishlist = () => {
     mutate({ id: router.query.slug as string });
   };
-  useEffect(() => {});
 
   return (
     <div className="flex items-center justify-center">
