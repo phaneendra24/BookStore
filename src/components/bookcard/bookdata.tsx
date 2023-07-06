@@ -53,7 +53,7 @@ export default function Bookdata({ slug }: myprops) {
 
       <div className="flex w-full">
         <div className="flex w-1/2 justify-center">
-          <Wishlist id={data.id} />
+          <Wishlist />
         </div>
         <div className="w-1.2">
           <button className="bg-orange-600 p-2" onClick={() => checkIn()}>
