@@ -7,14 +7,6 @@ import { useState } from "react";
 export default function Profileicon() {
   const { data } = useSession();
   const [authcard, setauthcard] = useState(false);
-
-  const handlecard = () => {
-    if (data) {
-      setauthcard(true);
-    } else {
-      setauthcard(false);
-    }
-  };
   return (
     <div className="w-fit">
       <div

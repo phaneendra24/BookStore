@@ -1,15 +1,8 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
 
-type Props = {
-  id: string;
-};
-
-export default function Wishlist({ id }: Props) {
-  const [wishstatus, setwish] = useState(Boolean);
+export default function Wishlist() {
   const router = useRouter();
-
   const { mutate, data } = api.update.updatedlike.useMutation();
   const addTowishlist = () => {
     mutate({ id: router.query.slug as string });

@@ -4,9 +4,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Bookdata from "~/components/bookcard/bookdata";
 import { api } from "~/utils/api";
-type props = {
-  id: string;
-};
 
 export default function Page() {
   const router = useRouter();
