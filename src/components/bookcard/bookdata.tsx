@@ -1,5 +1,6 @@
 import { api } from "~/utils/api";
 import Wishlist from "./wishlistbtn";
+import Buyproduct from "./buyproduct";
 
 type myprops = {
   slug: string | string[] | undefined;
@@ -18,11 +19,6 @@ export default function Bookdata({ slug }: myprops) {
       </div>
     );
   }
-
-  const checkIn = () => {
-    console.log("you bought the item");
-  };
-
   return (
     <div className="mt-10 flex w-full flex-col items-center justify-center gap-5">
       <div className="flex w-full flex-col gap-2 ">
@@ -55,9 +51,7 @@ export default function Bookdata({ slug }: myprops) {
           <Wishlist />
         </div>
         <div className="w-1.2">
-          <button className="bg-orange-600 p-2" onClick={() => checkIn()}>
-            Add to cart
-          </button>
+          <Buyproduct />
         </div>
       </div>
     </div>

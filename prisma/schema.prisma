@@ -56,6 +56,17 @@ model User {
   sessions      Session[]
   mybooks       Books[]
   wishlist      wishlist[]
+  orders        Orders[]
+}
+
+model Orders {
+  id       String      @id @default(cuid())
+  orderid  String
+  senderId String
+  status   orderstatus @default(UNSOLD)
+  user     User        @relation(fields: [orderid], references: [id])
+
+  @@index([orderid])
 }
 
 model Books {
@@ -82,4 +93,10 @@ model wishlist {
   @@id([bookId, userId])
   @@index([userId])
   @@index([bookId])
+}
+
+enum orderstatus {
+  SOLD
+  PENDING
+  UNSOLD
 }

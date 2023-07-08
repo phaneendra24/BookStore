@@ -15,9 +15,9 @@ export default function Sidebar() {
       link: "/trade",
     },
     {
-      src: "/messages.svg",
-      name: "Messages",
-      link: "/messages",
+      src: "/Inbox.svg",
+      name: "Inbox",
+      link: "/inbox",
     },
     {
       src: "/wishlist.svg",

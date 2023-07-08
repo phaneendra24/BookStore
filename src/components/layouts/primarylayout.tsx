@@ -1,6 +1,6 @@
 import Navbar from "./Navbar";
 import Sidebar from "./sidebar";
-import MenuCard from "./menucard";
+import MenuCard from "../menucard";
 import { useState } from "react";
 
 export default function PrimaryLayout({ children }: { children: JSX.Element }) {

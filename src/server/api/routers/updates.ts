@@ -5,20 +5,27 @@ export const updateRouter = createTRPCRouter({
   userLikedstatus: protectedProcedure
     .input(z.string())
     .query(async ({ ctx, input }) => {
-      const likedata = ctx.prisma.wishlist.findUnique({
-        where: {
-          bookId_userId: {
-            bookId: input,
-            userId: ctx.session.user.id,
+      try {
+        const likedata = await ctx.prisma.wishlist.findUnique({
+          where: {
+            bookId_userId: {
+              bookId: input,
+              userId: ctx.session.user.id,
+            },
           },
-        },
-      });
-      return likedata;
+        });
+        if (likedata) {
+          return likedata;
+        } else {
+          return null;
+        }
+        return likedata;
+      } catch (error) {
+        return null;
+      }
     }),
 
   wishlistitems: protectedProcedure.query(async ({ ctx }) => {
-    console.log("started");
-
     try {
       const data = await ctx.prisma.books.findMany({
         where: {
@@ -34,13 +41,14 @@ export const updateRouter = createTRPCRouter({
       return null;
     }
   }),
-  updatedlike: protectedProcedure
+
+  updatinglike: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       // current user id
       const usersessionid = ctx.session?.user.id;
+
       try {
-        console.log(input);
         const wishexist = await ctx.prisma.wishlist.findUnique({
           where: {
             bookId_userId: {
@@ -49,7 +57,6 @@ export const updateRouter = createTRPCRouter({
             },
           },
         });
-
         // deleting wish if not present
         if (wishexist) {
           const data = await ctx.prisma.wishlist.delete({

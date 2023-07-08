@@ -3,14 +3,17 @@ import Signin from "./signin";
 import { api } from "~/utils/api";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import React from "react";
 
 export default function Wishlist() {
   const { data: session } = useSession();
   const { data } = api.update.wishlistitems.useQuery();
+  const { mutate } = api.update.updatinglike.useMutation();
 
   if (!data) {
     return null;
   }
+
   return (
     <div className="ml-2 sm:ml-10">
       {session ? (
@@ -41,7 +44,13 @@ export default function Wishlist() {
                     </span>
                     .Rs
                   </span>
-                  <button className="rounded-sm bg-red-800 px-1">Remove</button>
+                  <button
+                    type="button"
+                    value={i.bookid}
+                    className="rounded-sm bg-red-800 px-1"
+                  >
+                    Remove
+                  </button>
                 </div>
               </motion.div>
             );
