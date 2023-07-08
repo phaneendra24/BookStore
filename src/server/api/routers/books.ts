@@ -9,7 +9,13 @@ import {
 export const booksrouter = createTRPCRouter({
   getAllBooks: publicProcedure.query(async ({ ctx }) => {
     try {
-      const books = await ctx.prisma.books.findMany();
+      const books = await ctx.prisma.books.findMany({
+        where: {
+          NOT: {
+            bookid: ctx.session?.user.id,
+          },
+        },
+      });
       return books;
     } catch (e) {
       return null;

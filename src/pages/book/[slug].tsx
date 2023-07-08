@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Bookdata from "~/components/bookcard/bookdata";
+import Buyproduct from "~/components/bookcard/buyproduct";
 import { api } from "~/utils/api";
 
 export default function Page() {
@@ -70,6 +71,9 @@ export default function Page() {
       </div>
 
       <Bookdata slug={slug} />
+      <div className="flex w-full justify-center">
+        <Buyproduct sellerid={data.id} slug={slug as string} />
+      </div>
     </div>
   );
 }

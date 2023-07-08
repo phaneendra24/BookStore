@@ -63,9 +63,9 @@ model Orders {
   id       String      @id @default(cuid())
   orderid  String
   senderId String
+  bookid   String
   status   orderstatus @default(UNSOLD)
   user     User        @relation(fields: [orderid], references: [id])
-
   @@index([orderid])
 }
 

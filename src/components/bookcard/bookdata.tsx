@@ -45,13 +45,9 @@ export default function Bookdata({ slug }: myprops) {
           <span className="w-grow">:{data.pages}</span>
         </div>
       </div>
-
       <div className="flex w-full">
         <div className="flex w-1/2 justify-center">
           <Wishlist />
-        </div>
-        <div className="w-1.2">
-          <Buyproduct />
         </div>
       </div>
     </div>
