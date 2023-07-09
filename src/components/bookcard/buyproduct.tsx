@@ -21,7 +21,6 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
       senderid: sellerid,
     });
     await refetch();
-    return null;
   };
 
   return (
