@@ -23,8 +23,11 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
   };
 
   useEffect(() => {
-    refetch();
-  }, [mutate, data]);
+    const callthefetch = async () => {
+      await refetch();
+    };
+    callthefetch();
+  }, [mutate, data, refetch]);
 
   return (
     <button className="bg-orange-600 p-2" onClick={() => sendBuyReq()}>
