@@ -20,7 +20,7 @@ export default function Wishlist({ likestatus }: pageprops) {
     const goandrefetch = async () => {
       await refetch();
     };
-    goandrefetch();
+    void goandrefetch();
   }
 
   return (

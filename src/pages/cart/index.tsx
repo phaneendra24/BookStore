@@ -23,7 +23,7 @@ export default function CartIndex() {
     const goandrefetch = async () => {
       await refetch();
     };
-    goandrefetch();
+    void goandrefetch();
   }
 
   return (
