@@ -17,8 +17,12 @@ export default function Wishlist({ likestatus }: pageprops) {
     mutate({ id: router.query.slug as string });
   };
   if (isSuccess) {
-    refetch();
+    const goandrefetch = async () => {
+      await refetch();
+    };
+    goandrefetch();
   }
+
   return (
     <div className="flex items-center justify-center">
       Add :

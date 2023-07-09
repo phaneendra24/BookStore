@@ -13,14 +13,17 @@ export default function CartIndex() {
       </div>
     );
   }
-  const cancelOrder = async (id: string | undefined) => {
+  const cancelOrder = (id: string | undefined) => {
     console.log(id);
     if (id != undefined) {
       mutate(id);
     }
   };
   if (isSuccess) {
-    refetch();
+    const goandrefetch = async () => {
+      await refetch();
+    };
+    goandrefetch();
   }
 
   return (

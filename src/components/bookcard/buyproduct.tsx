@@ -12,14 +12,17 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
     senderid: sellerid,
   });
   const { mutate, data, isSuccess } = api.sales.buyproduct.useMutation();
-  const sendBuyReq = async () => {
+  const sendBuyReq = () => {
     mutate({
       bookid: slug,
       senderid: sellerid,
     });
   };
   if (isSuccess) {
-    refetch();
+    const goandrefetch = async () => {
+      await refetch();
+    };
+    goandrefetch();
   }
 
   return (
