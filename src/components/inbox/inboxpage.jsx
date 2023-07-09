@@ -1,7 +1,7 @@
 import { api } from "~/utils/api";
 
 export default function InboxPage() {
-  const { data } = api.sales.productStatus.useQuery();
+  const { data } = api.sales.ProductInbox.useQuery();
 
   return (
     <div className="h-40 w-full">

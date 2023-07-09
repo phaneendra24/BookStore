@@ -10,8 +10,11 @@ export default function Bookdata({ slug }: myprops) {
     slug as string,
     { enabled: !!slug }
   );
+  const { data: likestatus } = api.update.userLikedstatus.useQuery(
+    slug as string
+  );
 
-  if (!data || isLoading) {
+  if (!data || isLoading || !likestatus == null) {
     return (
       <div className="flex w-full flex-col items-center justify-center gap-5">
         <div className="h-8 w-[80%] animate-pulse bg-[#252525]"></div>
@@ -47,7 +50,7 @@ export default function Bookdata({ slug }: myprops) {
       </div>
       <div className="flex w-full">
         <div className="flex w-1/2 justify-center">
-          <Wishlist />
+          <Wishlist likestatus={likestatus} />
         </div>
       </div>
     </div>

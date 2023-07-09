@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { api } from "~/utils/api";
 
 type pageprops = {
@@ -6,16 +7,28 @@ type pageprops = {
 };
 
 export default function Buyproduct({ sellerid, slug }: pageprops) {
+  const { data: productstatus, refetch } = api.sales.productstatus.useQuery({
+    bookid: slug,
+    senderid: sellerid,
+  });
+  console.log(productstatus);
+
   const { mutate, data } = api.sales.buyproduct.useMutation();
+
   const sendBuyReq = () => {
     mutate({
       bookid: slug,
       senderid: sellerid,
     });
   };
+
+  useEffect(() => {
+    refetch();
+  }, [mutate, data]);
+
   return (
     <button className="bg-orange-600 p-2" onClick={() => sendBuyReq()}>
-      Add to cart
+      {productstatus ? <>Pending</> : <>Add to cart</>}
     </button>
   );
 }

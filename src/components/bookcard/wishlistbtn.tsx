@@ -1,13 +1,16 @@
+import { wishlist } from "@prisma/client";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
 
-export default function Wishlist() {
+type pageprops = {
+  likestatus: wishlist | null | undefined;
+};
+
+export default function Wishlist({ likestatus }: pageprops) {
   const router = useRouter();
   const [like, setlike] = useState(Boolean);
-  const { data: likestatus } = api.update.userLikedstatus.useQuery(
-    router.query.slug as string
-  );
+
   const { mutate, data } = api.update.updatinglike.useMutation();
   const addTowishlist = () => {
     if (like) {

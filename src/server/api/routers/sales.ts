@@ -13,6 +13,15 @@ export const salesRouter = createTRPCRouter({
     .mutation(async ({ input, ctx }) => {
       const usersessionid = ctx.session?.user.id;
       try {
+        const exits = await ctx.prisma.orders.findMany({
+          where: {
+            orderid: input.senderid,
+            bookid: input.bookid,
+          },
+        });
+        if (exits.length > 0) {
+          return { error: "Order already Pending" };
+        }
         const update = await ctx.prisma.orders.create({
           data: {
             senderId: usersessionid,
@@ -24,12 +33,26 @@ export const salesRouter = createTRPCRouter({
         return update;
       } catch (error) {
         console.log(error);
-
         return null;
       }
     }),
+  productstatus: protectedProcedure
+    .input(z.object({ senderid: z.string(), bookid: z.string() }))
+    .query(async ({ ctx, input }) => {
+      const data = await ctx.prisma.orders.findMany({
+        where: {
+          bookid: input.bookid,
+          orderid: input.senderid,
+        },
+      });
+      if (data.length > 0) {
+        return true;
+      } else {
+        return false;
+      }
+    }),
 
-  productStatus: protectedProcedure.query(async ({ ctx }) => {
+  ProductInbox: protectedProcedure.query(async ({ ctx }) => {
     const data = await ctx.prisma.orders.findMany({
       where: {
         orderid: ctx.session.user.id,
