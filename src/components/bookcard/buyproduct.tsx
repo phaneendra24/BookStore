@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { motion } from "framer-motion";
 import { api } from "~/utils/api";
 
 type pageprops = {
@@ -11,21 +11,26 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
     bookid: slug,
     senderid: sellerid,
   });
-  console.log(productstatus);
-
-  const { mutate, data } = api.sales.buyproduct.useMutation();
-
+  const { mutate, data, isSuccess } = api.sales.buyproduct.useMutation();
   const sendBuyReq = async () => {
     mutate({
       bookid: slug,
       senderid: sellerid,
     });
-    await refetch();
   };
+  if (isSuccess) {
+    refetch();
+  }
 
   return (
-    <button className="bg-orange-600 p-2" onClick={() => void sendBuyReq()}>
+    <motion.button
+      whileTap={{
+        scale: 1.2,
+      }}
+      className="bg-orange-600 p-2"
+      onClick={() => void sendBuyReq()}
+    >
       {productstatus ? <>Pending</> : <>Add to cart</>}
-    </button>
+    </motion.button>
   );
 }
