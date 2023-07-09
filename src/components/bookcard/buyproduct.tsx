@@ -20,7 +20,8 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
       bookid: slug,
       senderid: sellerid,
     });
-    refetch();
+    await refetch();
+    return null;
   };
 
   return (
