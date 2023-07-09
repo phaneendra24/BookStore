@@ -24,7 +24,7 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
   };
 
   return (
-    <button className="bg-orange-600 p-2" onClick={() => sendBuyReq()}>
+    <button className="bg-orange-600 p-2" onClick={() => void sendBuyReq()}>
       {productstatus ? <>Pending</> : <>Add to cart</>}
     </button>
   );
