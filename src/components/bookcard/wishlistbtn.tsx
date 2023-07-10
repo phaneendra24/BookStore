@@ -25,7 +25,7 @@ export default function Wishlist({ likestatus }: pageprops) {
 
   return (
     <div className="flex items-center justify-center">
-      Add :
+      Add to Wishlist :
       <motion.button
         whileTap={{
           scale: 1.2,

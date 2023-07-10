@@ -11,7 +11,7 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
     bookid: slug,
     senderid: sellerid,
   });
-  const { mutate, data, isSuccess } = api.sales.buyproduct.useMutation();
+  const { mutate, isSuccess, isLoading } = api.sales.buyproduct.useMutation();
   const sendBuyReq = () => {
     mutate({
       bookid: slug,
@@ -30,10 +30,16 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
       whileTap={{
         scale: 1.2,
       }}
-      className="bg-orange-600 p-2"
+      className={`flex min-w-[8rem] items-center justify-center bg-orange-600 p-2 ${
+        isLoading ? "hover:cursor-wait" : ""
+      }`}
       onClick={() => void sendBuyReq()}
     >
-      {productstatus ? <>Pending</> : <>Add to cart</>}
+      {isLoading ? (
+        <div className="h-5 w-5 animate-spin rounded-full border-l-2"></div>
+      ) : (
+        <>{productstatus ? <>Pending</> : <>Add to cart</>}</>
+      )}
     </motion.button>
   );
 }
