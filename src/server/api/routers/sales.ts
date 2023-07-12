@@ -1,11 +1,11 @@
 import { z } from "zod";
 import { createTRPCRouter, protectedProcedure } from "../trpc";
-import { Books, User } from "@prisma/client";
+import type { Books, User } from "@prisma/client";
 
-type orderreqType = {
-  bookdata: Books | null;
-  buyerdata: User | null;
-}[];
+// type orderreqType = {
+//   bookdata: Books | null;
+//   buyerdata: User | null;
+// }[];
 
 export const salesRouter = createTRPCRouter({
   buyproduct: protectedProcedure

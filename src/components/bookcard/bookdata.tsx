@@ -1,6 +1,4 @@
-import { api } from "~/utils/api";
-import Buyproduct from "./buyproduct";
-import { Books } from "@prisma/client";
+import type { Books } from "@prisma/client";
 
 type myprops = {
   data: Books | null | undefined;

@@ -3,13 +3,7 @@
 import { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React, {
-  Dispatch,
-  SetStateAction,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 type popcardprops = {
   data: Session | null;
   setpopup: Dispatch<SetStateAction<boolean>>;
@@ -18,7 +12,7 @@ type popcardprops = {
 const Popupcard = ({ data, setpopup }: popcardprops) => {
   return (
     <div
-      onClick={(e) => {
+      onClick={() => {
         setpopup(false);
       }}
       className="fixed inset-0 flex justify-end  backdrop-brightness-75   transition-all"

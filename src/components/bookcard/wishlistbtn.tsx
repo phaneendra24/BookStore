@@ -1,4 +1,4 @@
-import { wishlist } from "@prisma/client";
+import type { wishlist } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
