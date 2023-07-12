@@ -4,6 +4,8 @@ import { api } from "~/utils/api";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import React from "react";
+import { Getserverauthsession } from "~/server/customs/getserverauth";
+import { GetServerSidePropsContext } from "next";
 
 export default function Wishlist() {
   const { data: session } = useSession();
@@ -62,3 +64,12 @@ export default function Wishlist() {
     </div>
   );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await Getserverauthsession(ctx);
+  return {
+    props: {
+      session: session,
+    },
+  };
+};

@@ -2,15 +2,25 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { api } from "~/utils/api";
 import Signin from "../signin";
+import LoadingUi from "~/components/loadingui";
+import { GetServerSidePropsContext } from "next";
+import { Getserverauthsession } from "~/server/customs/getserverauth";
 
 export default function CartIndex() {
   const { data: session } = useSession();
   const [processing, setprocessing] = useState(Boolean);
-  const { data, refetch } = api.cart.getcartitems.useQuery();
+  const {
+    data,
+    refetch,
+    isLoading: contentLoading,
+  } = api.cart.getcartitems.useQuery();
   const { mutate, isLoading, isSuccess } = api.cart.cancelOrder.useMutation();
 
   if (!session) {
     return <Signin />;
+  }
+  if (contentLoading) {
+    return <LoadingUi />;
   }
 
   if (!data) {
@@ -69,3 +79,12 @@ export default function CartIndex() {
     </div>
   );
 }
+
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+  const session = await Getserverauthsession(ctx);
+  return {
+    props: {
+      session: session,
+    },
+  };
+};

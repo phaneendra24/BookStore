@@ -14,7 +14,7 @@ const LoadingUi = () => {
             key={i}
             className="flex h-full w-full animate-pulse flex-col gap-2"
           >
-            <div className="h-70 bg-[#252525] sm:h-60"></div>
+            <div className="h-72 bg-[#252525] sm:h-60"></div>
             <div className="h-4 w-2/3 bg-[#252525]"></div>
             <div className="h-4 w-1/3 bg-[#252525]"></div>
             <div className="flex w-full justify-center">
