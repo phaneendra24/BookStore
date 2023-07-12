@@ -33,7 +33,7 @@ export default function Sidebar() {
   const router = useRouter();
 
   return (
-    <div className="fixed top-16  w-1/12 px-2 text-white md:px-8">
+    <div className="fixed top-14 w-14  px-2 text-white ">
       {options.map((i) => {
         return (
           <Link href={i.link} key={i.name}>

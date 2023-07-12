@@ -21,7 +21,7 @@ const Popupcard = ({ data, setpopup }: popcardprops) => {
       onClick={(e) => {
         setpopup(false);
       }}
-      className="fixed inset-0  right-0 flex justify-end   transition-all"
+      className="fixed inset-0 flex justify-end  backdrop-brightness-75   transition-all"
     >
       <div className="mr-10 mt-20 h-32 rounded-sm bg-[#252525] p-2">
         <div className="flex flex-col text-xs">

@@ -24,7 +24,7 @@ export default function Trade() {
     });
   };
   return (
-    <div className="relative ml-2 sm:ml-10">
+    <div className="relative ">
       {!session ? (
         <Signin />
       ) : (
@@ -45,7 +45,7 @@ export default function Trade() {
                   placeholder="name of the book"
                 />
               </div>
-              <div className="flex w-full flex-col gap-5 sm:flex-row">
+              <div className="item flex w-full flex-col gap-5 sm:flex-row">
                 <div>
                   <span className="w-1/4">Genre</span>
                   <select

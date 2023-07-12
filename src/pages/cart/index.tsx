@@ -1,10 +1,18 @@
+import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 import { api } from "~/utils/api";
+import Signin from "../signin";
 
 export default function CartIndex() {
+  const { data: session } = useSession();
   const [processing, setprocessing] = useState(Boolean);
   const { data, refetch } = api.cart.getcartitems.useQuery();
   const { mutate, isLoading, isSuccess } = api.cart.cancelOrder.useMutation();
+
+  if (!session) {
+    return <Signin />;
+  }
+
   if (!data) {
     return (
       <div className="">

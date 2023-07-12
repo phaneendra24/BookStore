@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import { api } from "~/utils/api";
 
 type pageprops = {
@@ -11,8 +12,13 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
     bookid: slug,
     senderid: sellerid,
   });
+  const { data: session } = useSession();
+
   const { mutate, isSuccess, isLoading } = api.sales.buyproduct.useMutation();
   const sendBuyReq = () => {
+    if (!session) {
+      alert("please sigin first!");
+    }
     mutate({
       bookid: slug,
       senderid: sellerid,
