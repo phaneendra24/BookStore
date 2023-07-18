@@ -5,7 +5,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import React from "react";
 import { Getserverauthsession } from "~/server/customs/getserverauth";
-import { GetServerSidePropsContext } from "next";
+import type { GetServerSidePropsContext } from "next";
 import LoadingUi from "~/components/loadingui";
 
 export default function Wishlist() {
@@ -26,8 +26,12 @@ export default function Wishlist() {
   };
 
   if (isSuccess) {
-    refetch();
+    const goandrefetch = async () => {
+      await refetch();
+    };
+    void goandrefetch();
   }
+
   if (!data || data.length == 0) {
     return (
       <div className="flex w-full items-center justify-center ">
