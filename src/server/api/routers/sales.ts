@@ -22,12 +22,18 @@ export const salesRouter = createTRPCRouter({
         if (exits.length > 0) {
           return { error: "Order already Pending" };
         }
-        const update = await ctx.prisma.orders.create({
+        const update = await ctx.prisma.user.update({
+          where: {
+            id: ctx.session.user.id,
+          },
           data: {
-            senderId: usersessionid,
-            bookid: input.bookid,
-            status: "PENDING",
-            orderid: input.senderid,
+            orders: {
+              create: {
+                senderId: usersessionid,
+                bookid: input.bookid,
+                status: "PENDING",
+              },
+            },
           },
         });
         return update;
@@ -72,9 +78,28 @@ export const salesRouter = createTRPCRouter({
         bookdata: bookdata,
         buyerdata: customerDetails,
         status: i.status,
+        id: i.id,
       };
     });
     const books = await Promise.all(promises);
     return books;
   }),
+
+  OrderacceptQuery: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const status = await ctx.prisma.orders.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            status: "SOLD",
+          },
+        });
+        return "success";
+      } catch (E) {
+        return E;
+      }
+    }),
 });

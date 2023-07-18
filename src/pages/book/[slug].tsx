@@ -97,9 +97,7 @@ export default function Page() {
           </div>
         </div>
       </div>
-
       <Bookdata data={data} />
-
       <div className="mt-5  flex justify-center">
         <div className="flex w-1/2 justify-center">
           <Wishlist likestatus={likestatus} />

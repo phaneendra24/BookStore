@@ -25,6 +25,9 @@ const LoadingUi = () => {
 
 export default function InboxPage() {
   const { data, isLoading } = api.sales.ProductInbox.useQuery();
+
+  const { data: mutdata, mutate } = api.sales.OrderacceptQuery.useMutation();
+
   if (isLoading) {
     return <LoadingUi />;
   }
@@ -37,10 +40,12 @@ export default function InboxPage() {
             className="flex w-fit flex-col items-center justify-center bg-[#ffffff10]"
           >
             <h1>{i.bookdata?.bookName}</h1>
-
             <h1>{i.buyerdata?.name}</h1>
-            <button className="cursor-pointer bg-slate-600 p-2">
-              {i.status == "PENDING" ? <>Accept</> : <></>}
+            <button
+              className="cursor-pointer bg-slate-600 p-2"
+              onClick={() => mutate({ id: i.id })}
+            >
+              {i.status == "PENDING" ? <>Accept</> : <>SOLD</>}
             </button>
           </div>
         );

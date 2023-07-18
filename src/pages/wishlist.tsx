@@ -6,20 +6,42 @@ import { motion } from "framer-motion";
 import React from "react";
 import { Getserverauthsession } from "~/server/customs/getserverauth";
 import { GetServerSidePropsContext } from "next";
+import LoadingUi from "~/components/loadingui";
 
 export default function Wishlist() {
   const { data: session } = useSession();
-  const { data } = api.update.wishlistitems.useQuery();
-  const { mutate } = api.update.updatinglike.useMutation();
+  const { data, refetch, isLoading } = api.update.wishlistitems.useQuery();
+  const { mutate, isSuccess } = api.update.updatinglike.useMutation();
 
   if (!session) {
     return <Signin />;
   }
 
-  if (!data) {
-    return null;
+  if (isLoading) {
+    return <LoadingUi />;
   }
 
+  const removelike = (id: string) => {
+    mutate({ id: id });
+  };
+
+  if (isSuccess) {
+    refetch();
+  }
+  if (!data || data.length == 0) {
+    return (
+      <div className="flex w-full items-center justify-center ">
+        <Image
+          src="/db.svg"
+          width={60}
+          height={60}
+          className="h-32 w-32 text-slate-400"
+          alt="err"
+        />
+        No Records Found
+      </div>
+    );
+  }
   return (
     <div className="ml-2 sm:ml-10">
       <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-4">
@@ -27,9 +49,9 @@ export default function Wishlist() {
           return (
             <motion.div
               key={i.id}
-              className="w-fit cursor-pointer rounded-md p-5 hover:bg-[#ffffff1a]"
-              whileTap={{
-                scale: 1,
+              className="w-fit  rounded-md p-5 "
+              whileHover={{
+                scale: 1.02,
               }}
             >
               <Image
@@ -53,6 +75,7 @@ export default function Wishlist() {
                   type="button"
                   value={i.bookid}
                   className="rounded-sm bg-red-800 px-1"
+                  onClick={() => removelike(i.id)}
                 >
                   Remove
                 </button>
