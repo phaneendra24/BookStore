@@ -58,6 +58,7 @@ export default function CartIndex() {
           {data?.map((i) => {
             return (
               <motion.div
+                key={i.bookdata?.id}
                 className="flex w-full cursor-pointer flex-col items-start justify-center gap-2 border-[1px] border-slate-600 pb-2"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{

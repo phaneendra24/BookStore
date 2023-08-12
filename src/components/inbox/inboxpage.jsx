@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
-import Link from "next/link";
 import { api } from "~/utils/api";
 
 const LoadingUi = () => {
@@ -39,6 +38,7 @@ export default function InboxPage() {
       {data?.map((i) => {
         return (
           <motion.div
+            key={i.id}
             className="flex w-full  flex-col items-start justify-center gap-2 border-[1px] border-slate-600 pb-2"
             whileHover={{ scale: 1.02 }}
             whileTap={{
