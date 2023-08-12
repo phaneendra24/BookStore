@@ -3,10 +3,19 @@ import Signin from "../signin";
 import InboxPage from "../../components/inbox/inboxpage";
 import { GetServerSidePropsContext } from "next";
 import { Getserverauthsession } from "~/server/customs/getserverauth";
+import LoadingUi from "~/components/loadingui";
 
 export default function Inbox() {
-  const { data: session } = useSession();
-  return <div>{session ? <InboxPage /> : <Signin />}</div>;
+  const { data: session, status } = useSession();
+  return (
+    <div>
+      {status == "loading" ? (
+        <LoadingUi />
+      ) : (
+        <>{session ? <InboxPage /> : <Signin />}</>
+      )}
+    </div>
+  );
 }
 
 // export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {

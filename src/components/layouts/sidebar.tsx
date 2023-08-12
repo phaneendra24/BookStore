@@ -1,3 +1,4 @@
+import { animate, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -33,16 +34,21 @@ export default function Sidebar() {
   const router = useRouter();
 
   return (
-    <div className="fixed top-14 w-14  px-2 text-white ">
+    <motion.div
+      className="fixed top-14 h-full w-14  px-2 text-white"
+      whileTap={{
+        scale: 1,
+      }}
+    >
       {options.map((i) => {
         return (
           <Link href={i.link} key={i.name}>
-            <div
+            <motion.div
               className={`${
                 router.asPath == `${i.link}`
                   ? "rounded-sm bg-[#ffffff1a] p-1"
                   : ""
-              } my-10 flex w-10 cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:bg-[#292929]`}
+              }  my-10 flex w-10 cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:bg-[#292929]`}
             >
               <span className="h-fit  w-fit">
                 <Image
@@ -54,10 +60,10 @@ export default function Sidebar() {
                 />
               </span>
               <span className="text-[10px]">{i.name}</span>
-            </div>
+            </motion.div>
           </Link>
         );
       })}
-    </div>
+    </motion.div>
   );
 }

@@ -1,3 +1,6 @@
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
 import { api } from "~/utils/api";
 
 const LoadingUi = () => {
@@ -35,21 +38,53 @@ export default function InboxPage() {
     <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll px-2 py-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 xl:grid-cols-4">
       {data?.map((i) => {
         return (
-          <div
-            key={i.bookdata?.id}
-            className="flex w-fit flex-col items-center justify-center bg-[#ffffff10]"
+          <motion.div
+            className="flex w-full  flex-col items-start justify-center gap-2 border-[1px] border-slate-600 pb-2"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{
+              scale: 1,
+            }}
           >
-            <h1>{i.bookdata?.bookName}</h1>
-            <h1>{i.buyerdata?.name}</h1>
-            <button
-              className="cursor-pointer bg-slate-600 p-2"
-              onClick={() => mutate({ id: i.id })}
-            >
-              {i.status == "PENDING" ? <>Accept</> : <>SOLD</>}
-            </button>
-          </div>
+            <div className="flex h-72 w-full items-center justify-center bg-[#252525] sm:h-60">
+              <Image
+                priority
+                src="/bookimage.svg"
+                width={60}
+                height={60}
+                alt="no"
+              />
+            </div>
+            <div className="pl-2">
+              <h1 className="text-xl">{i.buyerdata?.name}</h1>
+              Price : <span className="">1200</span>
+              .Rs
+            </div>
+            <div className="flex w-full justify-center  text-center text-black">
+              <span className="w-[90%] rounded-md bg-white">SOLD</span>
+            </div>
+          </motion.div>
         );
       })}
     </div>
   );
 }
+
+// <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll px-2 py-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 xl:grid-cols-4">
+//   {data?.map((i) => {
+//     return (
+//       <div
+//         key={i.bookdata?.id}
+//         className="flex w-fit flex-col items-center justify-center bg-[#ffffff10]"
+//       >
+//         <h1>{i.bookdata?.bookName}</h1>
+//         <h1>{i.buyerdata?.name}</h1>
+//         <button
+//           className="cursor-pointer bg-slate-600 p-2"
+//           onClick={() => mutate({ id: i.id })}
+//         >
+//           {i.status == "PENDING" ? <>Accept</> : <>SOLD</>}
+//         </button>
+//       </div>
+//     );
+//   })}
+// </div>
