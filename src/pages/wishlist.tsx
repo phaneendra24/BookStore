@@ -92,11 +92,11 @@ export default function Wishlist() {
   );
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const session = await Getserverauthsession(ctx);
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   const session = await Getserverauthsession(ctx);
+//   return {
+//     props: {
+//       session: session,
+//     },
+//   };
+// };

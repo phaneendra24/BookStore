@@ -9,11 +9,11 @@ export default function Inbox() {
   return <div>{session ? <InboxPage /> : <Signin />}</div>;
 }
 
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const session = await Getserverauthsession(ctx);
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
+// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
+//   const session = await Getserverauthsession(ctx);
+//   return {
+//     props: {
+//       session: session,
+//     },
+//   };
+// };
