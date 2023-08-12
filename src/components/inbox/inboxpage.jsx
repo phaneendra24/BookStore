@@ -35,7 +35,7 @@ export default function InboxPage() {
     return <LoadingUi />;
   }
   return (
-    <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll px-2 py-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 xl:grid-cols-4">
+    <>
       {data?.map((i) => {
         return (
           <motion.div
@@ -45,7 +45,15 @@ export default function InboxPage() {
               scale: 1,
             }}
           >
-            <div className="flex h-72 w-full items-center justify-center bg-[#252525] sm:h-60">
+            <div className="relative flex h-72 w-full items-center justify-center bg-[#252525] sm:h-60">
+              <Image
+                priority
+                src="/trash.svg"
+                width={60}
+                height={60}
+                alt="no"
+                className="absolute right-1 top-1 h-6 w-6 cursor-pointer "
+              />
               <Image
                 priority
                 src="/bookimage.svg"
@@ -65,7 +73,7 @@ export default function InboxPage() {
           </motion.div>
         );
       })}
-    </div>
+    </>
   );
 }
 

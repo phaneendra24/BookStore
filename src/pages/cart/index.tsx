@@ -1,13 +1,13 @@
 import { useSession } from "next-auth/react";
 import { useState } from "react";
+import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
 import Signin from "../signin";
-import LoadingUi from "~/components/loadingui";
-import { GetServerSidePropsContext } from "next";
-import { Getserverauthsession } from "~/server/customs/getserverauth";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function CartIndex() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [processing, setprocessing] = useState(Boolean);
   const {
     data,
@@ -16,11 +16,12 @@ export default function CartIndex() {
   } = api.cart.getcartitems.useQuery();
   const { mutate, isLoading, isSuccess } = api.cart.cancelOrder.useMutation();
 
+  if (status == "loading") {
+    return <LoadingUi />;
+  }
+
   if (!session) {
     return <Signin />;
-  }
-  if (contentLoading) {
-    return <LoadingUi />;
   }
 
   if (!data) {
@@ -53,38 +54,40 @@ export default function CartIndex() {
       {data.length == 0 ? (
         <div className="">No items in the cart</div>
       ) : (
-        data.map((i) => {
-          return (
-            <div
-              key={i.bookdata?.id}
-              className="flex h-fit w-full flex-col items-center justify-center gap-5  p-3"
-            >
-              <span className="flex w-full flex-col items-start bg-[#252525] p-2">
-                <h1>Book: {i.bookdata?.bookName}</h1>
-                <span>price :{i.bookdata?.price}</span>
-              </span>
-              <div className="w-full bg-[#252525] p-1 text-center">
-                {i.status}
-              </div>
-              <div
-                onClick={() => cancelOrder(i.bookdata?.id)}
-                className="w-full cursor-pointer bg-orange-700 py-2 text-center"
+        <>
+          {data?.map((i) => {
+            return (
+              <motion.div
+                className="flex w-full cursor-pointer flex-col items-start justify-center gap-2 border-[1px] border-slate-600 pb-2"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{
+                  scale: 1,
+                }}
               >
-                Cancel Order
-              </div>
-            </div>
-          );
-        })
+                <div className="flex h-72 w-full items-center justify-center bg-[#252525] sm:h-60">
+                  <Image
+                    priority
+                    src="/bookimage.svg"
+                    width={60}
+                    height={60}
+                    alt="no"
+                  />
+                </div>
+                <div className="pl-2">
+                  <h1 className="text-xl">{i.bookdata?.bookName}</h1>
+                  Price : <span className="">1200</span>
+                  .Rs
+                </div>
+                <div className="flex w-full justify-center  text-center text-black">
+                  <span className="w-[90%] rounded-md bg-white">
+                    {i.status}
+                  </span>
+                </div>
+              </motion.div>
+            );
+          })}
+        </>
       )}
     </div>
   );
 }
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  const session = await Getserverauthsession(ctx);
-  return {
-    props: {
-      session: session,
-    },
-  };
-};
