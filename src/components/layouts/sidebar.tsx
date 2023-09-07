@@ -35,7 +35,7 @@ export default function Sidebar() {
 
   return (
     <motion.div
-      className="fixed top-14 h-full w-14  px-2 text-white"
+      className="fixed top-14 h-full w-14   px-2 text-white"
       whileTap={{
         scale: 1,
       }}
@@ -45,12 +45,10 @@ export default function Sidebar() {
           <Link href={i.link} key={i.name}>
             <motion.div
               className={`${
-                router.asPath == `${i.link}`
-                  ? "rounded-sm bg-[#ffffff1a] p-1"
-                  : ""
-              }  my-10 flex w-10 cursor-pointer flex-col items-center justify-center  text-xs font-thin hover:bg-[#292929]`}
+                router.asPath == `${i.link}` ? "rounded-lg bg-[#232f3e]" : ""
+              } my-10 flex h-16 w-16 cursor-pointer flex-col items-center justify-center   text-xs font-thin `}
             >
-              <span className="h-fit  w-fit">
+              <span className="min-h-[3vh]   min-w-[5vh]">
                 <Image
                   src={`${i.src}`}
                   width={30}
@@ -59,7 +57,9 @@ export default function Sidebar() {
                   className={`${router.asPath == i.src ? "underline" : ""}`}
                 />
               </span>
-              <span className="text-[10px]">{i.name}</span>
+              <span className="text-xs font-extralight text-white">
+                {i.name}
+              </span>
             </motion.div>
           </Link>
         );

@@ -1,52 +1,63 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { enqueueSnackbar } from "notistack";
 import { api } from "~/utils/api";
 
 export default function InboxPage() {
-  const { data, isLoading } = api.sales.ProductInbox.useQuery();
+  const { data, isLoading, refetch } = api.sales.ProductInbox.useQuery();
 
   const { data: mutdata, mutate } = api.sales.OrderacceptQuery.useMutation();
 
+  const confirmOrder = async () => {
+    await refetch();
+    enqueueSnackbar("Order confirmed", { variant: "success" });
+  };
+  const rejectOrders = async () => {
+    enqueueSnackbar("rejected", { variant: "error" });
+  };
   return (
     <>
-      {data?.map((i) => {
-        return (
-          <motion.div
-            key={i.id}
-            className="flex w-full  flex-col items-start justify-center gap-2 border-[1px] border-slate-600 pb-2"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{
-              scale: 1,
-            }}
-          >
-            <div className="relative flex h-72 w-full items-center justify-center bg-[#252525] sm:h-60">
-              <Image
-                priority
-                src="/trash.svg"
-                width={60}
-                height={60}
-                alt="no"
-                className="absolute right-1 top-1 h-6 w-6 cursor-pointer "
-              />
-              <Image
-                priority
-                src="/bookimage.svg"
-                width={60}
-                height={60}
-                alt="no"
-              />
-            </div>
-            <div className="pl-2">
-              <h1 className="text-xl">{i.buyerdata?.name}</h1>
-              Price : <span className="">1200</span>
-              .Rs
-            </div>
-            <div className="flex w-full justify-center  text-center text-black">
-              <span className="w-[90%] rounded-md bg-white">SOLD</span>
-            </div>
-          </motion.div>
-        );
-      })}
+      {isLoading ? (
+        <p className="mt-5 animate-bounce">Loading...</p>
+      ) : (
+        <>
+          {data?.map((i) => {
+            return (
+              <div className="flex h-fit w-fit flex-col items-center justify-center bg-gray-800 p-2">
+                <div className="flex w-full items-center justify-between gap-2">
+                  <span>
+                    <h1>{i.bookdata?.bookName}</h1>
+                    <p>by {i.bookdata?.authorname}</p>
+                  </span>
+                  <span className="h-fit w-fit rounded-sm bg-white text-black">
+                    ${i.bookdata?.price}
+                  </span>
+                </div>
+                <div className="flex w-full justify-between gap-5 text-black">
+                  <button
+                    className="min-w-[15vh] rounded-md bg-white p-1 hover:bg-gray-300"
+                    onClick={confirmOrder}
+                  >
+                    Confirm
+                  </button>
+                  <button
+                    className="min-w-[15vh] rounded-lg bg-white hover:bg-gray-300"
+                    onClick={rejectOrders}
+                  >
+                    Reject
+                  </button>
+                </div>
+                <div className="flex w-full justify-between">
+                  <p className="text-xs">time</p>
+                  <p className="text-xs text-gray-300">
+                    sent by :{i.buyerdata?.name}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </>
+      )}
     </>
   );
 }

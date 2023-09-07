@@ -14,12 +14,16 @@ export default function Inbox() {
       ) : (
         <>
           {session ? (
-            <div>
-              <div>asdfsdf</div>
-              {/* info about the  */}
-              <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll px-2 py-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 xl:grid-cols-4">
+            <div className="flex w-full gap-10">
+              <div className="flex h-full min-h-[80vh] w-1/4 flex-col items-center rounded-xl bg-[#0e1015] px-4 py-2">
+                <h1 className="text-xl text-blue-700">Pending Requests</h1>
                 <InboxPage />
               </div>
+
+              <div className="w-3/4 rounded-xl bg-[#0a0c0f] p-2">
+                <h1 className="text-2xl text-blue-700">Manage your sales</h1>
+              </div>
+              {/* info about the  */}
             </div>
           ) : (
             <Signin />
