@@ -49,6 +49,7 @@ export const salesRouter = createTRPCRouter({
     const data = await ctx.prisma.orders.findMany({
       where: {
         orderid: ctx.session.user.id,
+        status: "PENDING",
       },
     });
 
@@ -75,6 +76,8 @@ export const salesRouter = createTRPCRouter({
   OrderacceptQuery: protectedProcedure
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
+      console.log(input.id);
+
       try {
         const status = await ctx.prisma.orders.update({
           where: {

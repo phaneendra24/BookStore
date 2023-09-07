@@ -6,12 +6,26 @@ import { api } from "~/utils/api";
 export default function InboxPage() {
   const { data, isLoading, refetch } = api.sales.ProductInbox.useQuery();
 
-  const { data: mutdata, mutate } = api.sales.OrderacceptQuery.useMutation();
+  const {
+    data: mutdata,
+    mutate,
+    isSuccess,
+  } = api.sales.OrderacceptQuery.useMutation();
 
-  const confirmOrder = async () => {
-    await refetch();
+  const confirmOrder = async (id: string | undefined) => {
+    if (id == undefined) {
+      return;
+    }
+    mutate({ id: id });
     enqueueSnackbar("Order confirmed", { variant: "success" });
   };
+  if (isSuccess) {
+    const goandrefetch = async () => {
+      await refetch();
+    };
+    void goandrefetch();
+  }
+
   const rejectOrders = async () => {
     enqueueSnackbar("rejected", { variant: "error" });
   };
@@ -20,7 +34,7 @@ export default function InboxPage() {
       {isLoading ? (
         <p className="mt-5 animate-bounce">Loading...</p>
       ) : (
-        <>
+        <div className="flex flex-col gap-5">
           {data?.map((i) => {
             return (
               <div
@@ -39,7 +53,7 @@ export default function InboxPage() {
                 <div className="flex w-full justify-between gap-5 text-black">
                   <button
                     className="min-w-[15vh] rounded-md bg-white p-1 hover:bg-gray-300"
-                    onClick={confirmOrder}
+                    onClick={() => confirmOrder(i.id)}
                   >
                     Confirm
                   </button>
@@ -59,7 +73,7 @@ export default function InboxPage() {
               </div>
             );
           })}
-        </>
+        </div>
       )}
     </>
   );
