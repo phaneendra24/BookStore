@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
 import { api } from "~/utils/api";
 
@@ -12,22 +10,30 @@ export default function InboxPage() {
     isSuccess,
   } = api.sales.OrderacceptQuery.useMutation();
 
-  const confirmOrder = async (id: string | undefined) => {
-    if (id == undefined) {
-      return;
-    }
-    mutate({ id: id });
-    enqueueSnackbar("Order confirmed", { variant: "success" });
-  };
-  if (isSuccess) {
+  const { mutate: rejectMutate, isSuccess: rejectSucess } =
+    api.sales.OrderrejectQuery.useMutation();
+
+  if (isSuccess || rejectSucess) {
     const goandrefetch = async () => {
       await refetch();
     };
     void goandrefetch();
   }
 
-  const rejectOrders = async () => {
-    enqueueSnackbar("rejected", { variant: "error" });
+  const confirmOrder = (id: string | undefined) => {
+    if (id == undefined) {
+      return;
+    }
+    mutate({ id: id });
+    enqueueSnackbar("Order confirmed", { variant: "success" });
+  };
+
+  const rejectOrder = (id: string | undefined) => {
+    if (id == undefined) {
+      return;
+    }
+    rejectMutate({ id: id });
+    enqueueSnackbar("Order rejected", { variant: "info" });
   };
   return (
     <>
@@ -53,13 +59,13 @@ export default function InboxPage() {
                 <div className="flex w-full justify-between gap-5 text-black">
                   <button
                     className="min-w-[15vh] rounded-md bg-white p-1 hover:bg-gray-300"
-                    onClick={() => confirmOrder(i.id)}
+                    onClick={() => void confirmOrder(i.id)}
                   >
                     Confirm
                   </button>
                   <button
                     className="min-w-[15vh] rounded-lg bg-white hover:bg-gray-300"
-                    onClick={rejectOrders}
+                    onClick={() => void rejectOrder(i.id)}
                   >
                     Reject
                   </button>

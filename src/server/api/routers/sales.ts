@@ -92,4 +92,19 @@ export const salesRouter = createTRPCRouter({
         return E;
       }
     }),
+
+  OrderrejectQuery: protectedProcedure
+    .input(z.object({ id: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      try {
+        const status = await ctx.prisma.orders.delete({
+          where: {
+            id: input.id,
+          },
+        });
+        return "success";
+      } catch (E) {
+        return E;
+      }
+    }),
 });
