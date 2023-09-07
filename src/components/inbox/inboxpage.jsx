@@ -23,7 +23,10 @@ export default function InboxPage() {
         <>
           {data?.map((i) => {
             return (
-              <div className="flex h-fit w-fit flex-col items-center justify-center bg-gray-800 p-2">
+              <div
+                className="flex h-fit w-fit flex-col items-center justify-center bg-gray-800 p-2"
+                key={i.id}
+              >
                 <div className="flex w-full items-center justify-between gap-2">
                   <span>
                     <h1>{i.bookdata?.bookName}</h1>
