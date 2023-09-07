@@ -103,7 +103,7 @@ export default function Page() {
           <Wishlist likestatus={likestatus} />
         </div>
         <div className="flex w-1/2 justify-start">
-          <Buyproduct sellerid={data.id} slug={slug as string} />
+          <Buyproduct sellerid={sellerdata.id} slug={slug as string} />
         </div>
       </div>
     </div>

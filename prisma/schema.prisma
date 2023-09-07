@@ -56,7 +56,6 @@ model User {
   sessions      Session[]
   mybooks       Books[]
   wishlist      wishlist[]
-  orders        Orders[]
 }
 
 model Orders {
@@ -65,9 +64,6 @@ model Orders {
   senderId String
   bookid   String
   status   orderstatus @default(UNSOLD)
-  user     User        @relation(fields: [orderid], references: [id])
-
-  @@index([orderid])
 }
 
 model Books {

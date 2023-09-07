@@ -14,6 +14,8 @@ export default function Buyproduct({ sellerid, slug }: pageprops) {
   });
   const { data: session } = useSession();
 
+  console.log(productstatus);
+
   const { mutate, isSuccess, isLoading } = api.sales.buyproduct.useMutation();
   const sendBuyReq = () => {
     if (!session) {

@@ -1,10 +1,8 @@
 import { useSession } from "next-auth/react";
 import React, { useState } from "react";
+import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
 import Signin from "./signin";
-import { Getserverauthsession } from "~/server/customs/getserverauth";
-import { GetServerSidePropsContext } from "next/types";
-import LoadingUi from "~/components/loadingui";
 
 export default function Trade() {
   const [bookname, setbookname] = useState("");
