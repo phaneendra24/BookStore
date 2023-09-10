@@ -14,13 +14,13 @@ export default function Inbox() {
       ) : (
         <>
           {session ? (
-            <div className="flex w-full gap-10">
-              <div className="flex h-full min-h-[80vh] w-1/4 flex-col items-center rounded-xl bg-[#0e1015] px-4 py-2">
+            <div className="flex w-full flex-col gap-10 sm:flex-row">
+              <div className="flex h-full min-h-[20vh] w-full flex-col items-center rounded-xl bg-[#0e1015] px-4 py-2 sm:min-h-[80vh] sm:w-1/4">
                 <h1 className="text-xl text-blue-700">Pending Requests</h1>
                 <InboxPage />
               </div>
 
-              <div className="w-3/4 rounded-xl bg-[#0a0c0f] p-2">
+              <div className="w-full rounded-xl bg-[#0a0c0f] p-2 sm:min-h-[80vh] sm:w-3/4">
                 <h1 className="text-2xl text-blue-700">Manage your sales</h1>
               </div>
               {/* info about the  */}

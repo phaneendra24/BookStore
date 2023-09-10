@@ -1,12 +1,9 @@
-import { useSession } from "next-auth/react";
-import Signin from "./signin";
-import { api } from "~/utils/api";
-import Image from "next/image";
 import { motion } from "framer-motion";
-import React from "react";
-import { Getserverauthsession } from "~/server/customs/getserverauth";
-import type { GetServerSidePropsContext } from "next";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import LoadingUi from "~/components/loadingui";
+import { api } from "~/utils/api";
+import Signin from "./signin";
 
 export default function Wishlist() {
   const { data: session } = useSession();
@@ -47,56 +44,47 @@ export default function Wishlist() {
     );
   }
   return (
-    <div className="ml-2 sm:ml-10">
-      <div className="grid grid-cols-1 place-items-center sm:grid-cols-2 lg:grid-cols-4">
-        {data.map((i) => {
-          return (
-            <motion.div
-              key={i.id}
-              className="w-fit  rounded-md p-5 "
-              whileHover={{
-                scale: 1.02,
-              }}
-            >
+    <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll py-4 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-4">
+      {data.map((i) => {
+        return (
+          <motion.div
+            key={i.id}
+            className="w-fit  rounded-md p-5 "
+            whileHover={{
+              scale: 1.02,
+            }}
+          >
+            <div className="h-72 w-full bg-[#252525]">
               <Image
                 priority
-                src="/bookimage.jpeg"
+                src="/bookimage.svg"
                 width={60}
                 height={60}
                 alt="no"
-                className="h-52 w-72 rounded-md"
+                className="h-6 w-6 rounded-md"
               />
-              <h1 className="text-xl">{i.bookName}</h1>
-              <p className="text-gray-400">{i.authorname}</p>
-              <div className="flex justify-between">
-                <span className="">
-                  <span className="animate-bounce text-orange-700">
-                    Price :{i.price}
-                  </span>
-                  .Rs
+            </div>
+            <h1 className="text-xl">{i.bookName}</h1>
+            <p className="text-gray-400">{i.authorname}</p>
+            <div className="flex justify-between">
+              <span className="">
+                <span className="animate-bounce text-orange-700">
+                  Price :{i.price}
                 </span>
-                <button
-                  type="button"
-                  value={i.bookid}
-                  className="rounded-sm bg-red-800 px-1"
-                  onClick={() => removelike(i.id)}
-                >
-                  Remove
-                </button>
-              </div>
-            </motion.div>
-          );
-        })}
-      </div>
+                .Rs
+              </span>
+              <button
+                type="button"
+                value={i.bookid}
+                className="rounded-sm bg-red-800 px-1"
+                onClick={() => removelike(i.id)}
+              >
+                Remove
+              </button>
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
-
-// export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-//   const session = await Getserverauthsession(ctx);
-//   return {
-//     props: {
-//       session: session,
-//     },
-//   };
-// };

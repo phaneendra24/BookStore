@@ -11,16 +11,17 @@ export default function PrimaryLayout({ children }: { children: JSX.Element }) {
     <div className="relative flex h-full min-h-screen w-full  justify-center bg-black  text-white">
       <MenuCard menustatus={menustatus} setmenustatus={setmenustatus} />
 
-      <div className={`h-full w-full ${menustatus ? "opacity-40" : ""}`}>
-        <Navbar menustatus={menustatus} setmenustatus={setmenustatus} />
-        <div className="flex h-full" onClick={() => setmenustatus(false)}>
-          <Sidebar />
-          <div className=" mr-2 mt-24 w-full overflow-hidden sm:ml-20 sm:mr-5">
+      <Navbar menustatus={menustatus} setmenustatus={setmenustatus} />
+      <Sidebar />
+
+      <div className={`mx-4 h-full w-full  ${menustatus ? "opacity-40" : ""}`}>
+        <div className="flex h-full pb-16" onClick={() => setmenustatus(false)}>
+          <div className="mt-24 w-full overflow-hidden sm:ml-20">
             {children}
           </div>
-          <Footer />
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

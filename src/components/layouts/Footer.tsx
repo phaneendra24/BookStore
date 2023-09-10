@@ -4,12 +4,12 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className="fixed bottom-0 flex h-14 w-full items-center  justify-around bg-green-300 sm:hidden">
+    <div className="fixed bottom-0 flex h-14 w-full items-center justify-around bg-black px-4 sm:hidden">
       {options.map((i) => {
         return (
-          <button key={i.name}>
+          <button key={i.name} className="">
             <Link href={i.link}>
-              <Image src={i.src} alt="img" width={20} height={20} />
+              <Image src={i.src} alt="img" width={30} height={30} />
             </Link>
           </button>
         );

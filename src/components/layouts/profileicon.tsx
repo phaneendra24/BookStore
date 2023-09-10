@@ -46,7 +46,7 @@ export default function Profileicon() {
   const { data } = useSession();
   const [isopen, setisopen] = useState(false);
   return (
-    <div className="w-fit">
+    <>
       <div className="h-fit w-fit cursor-pointer">
         {data ? (
           <Image
@@ -69,6 +69,6 @@ export default function Profileicon() {
         )}
       </div>
       {isopen && <Popupcard data={data} setpopup={setisopen} />}
-    </div>
+    </>
   );
 }
