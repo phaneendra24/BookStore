@@ -3,39 +3,41 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+export const options = [
+  {
+    src: "/home.svg",
+    name: "Home",
+    link: "/",
+    img: "home.svg",
+  },
+  {
+    src: "/inbox.svg",
+    name: "Trade",
+    link: "/trade",
+  },
+  {
+    src: "/message.svg",
+    name: "Inbox",
+    link: "/inbox",
+  },
+  {
+    src: "/wishlist.svg",
+    name: "WishList",
+    link: "/wishlist",
+  },
+  {
+    src: "/cart.svg",
+    name: "Cart",
+    link: "/cart",
+  },
+];
+
 export default function Sidebar() {
-  const options = [
-    {
-      src: "/home.svg",
-      name: "Home",
-      link: "/",
-    },
-    {
-      src: "/inbox.svg",
-      name: "Trade",
-      link: "/trade",
-    },
-    {
-      src: "/Inbox.svg",
-      name: "Inbox",
-      link: "/inbox",
-    },
-    {
-      src: "/wishlist.svg",
-      name: "WishList",
-      link: "/wishlist",
-    },
-    {
-      src: "/cart.svg",
-      name: "Cart",
-      link: "/cart",
-    },
-  ];
   const router = useRouter();
 
   return (
     <motion.div
-      className="fixed top-14 h-full w-14   px-2 text-white"
+      className="fixed top-14 hidden h-full w-14 px-2   text-white sm:block"
       whileTap={{
         scale: 1,
       }}

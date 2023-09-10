@@ -8,7 +8,7 @@ interface IMyProps {
 }
 export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
   return (
-    <div className="fixed z-10 flex h-fit w-screen justify-between border-b-[0.1px] border-slate-600 bg-black px-5 py-3 md:px-3 md:py-5">
+    <div className="fixed z-10 flex h-fit w-screen justify-between border-b-[0.1px] border-slate-600 bg-black px-2 py-3 md:px-3 md:py-5">
       <div className="flex h-full items-center justify-start">
         <button className="" onClick={() => setmenustatus(!menustatus)}>
           <Image
