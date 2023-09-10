@@ -72,7 +72,6 @@ export const booksrouter = createTRPCRouter({
     .mutation(async ({ ctx, input }) => {
       try {
         // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-
         const post = await ctx.prisma.user.update({
           where: {
             id: ctx.session.user.id,
@@ -92,6 +91,8 @@ export const booksrouter = createTRPCRouter({
         });
         return post;
       } catch (e) {
+        console.log(e);
+
         return e;
       }
     }),

@@ -1,24 +1,32 @@
+import dayjs from "dayjs";
+import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
+import { useEffect } from "react";
 import { api } from "~/utils/api";
 
 export default function InboxPage() {
-  const { data, isLoading, refetch } = api.sales.ProductInbox.useQuery();
+  const { data, isLoading, refetch, isFetching } =
+    api.sales.ProductInbox.useQuery();
 
   const {
     data: mutdata,
     mutate,
     isSuccess,
+    isLoading: successLoading,
   } = api.sales.OrderacceptQuery.useMutation();
 
-  const { mutate: rejectMutate, isSuccess: rejectSucess } =
-    api.sales.OrderrejectQuery.useMutation();
+  const {
+    mutate: rejectMutate,
+    isLoading: rejectionLoading,
+    isSuccess: rejectSuccess,
+  } = api.sales.OrderrejectQuery.useMutation();
 
-  if (isSuccess || rejectSucess) {
+  useEffect(() => {
     const goandrefetch = async () => {
       await refetch();
     };
     void goandrefetch();
-  }
+  }, [successLoading, rejectionLoading]);
 
   const confirmOrder = (id: string | undefined) => {
     if (id == undefined) {
@@ -35,6 +43,7 @@ export default function InboxPage() {
     rejectMutate({ id: id });
     enqueueSnackbar("Order rejected", { variant: "info" });
   };
+
   return (
     <>
       {isLoading ? (
@@ -59,7 +68,9 @@ export default function InboxPage() {
                 <div className="flex w-full justify-between gap-5 text-black">
                   <button
                     className="min-w-[15vh] rounded-md bg-white p-1 hover:bg-gray-300"
-                    onClick={() => void confirmOrder(i.id)}
+                    onClick={() => {
+                      void confirmOrder(i.id);
+                    }}
                   >
                     Confirm
                   </button>
@@ -71,7 +82,13 @@ export default function InboxPage() {
                   </button>
                 </div>
                 <div className="flex w-full justify-between">
-                  <p className="text-xs">time</p>
+                  <p
+                    className="text-xs text-gray-300"
+                    onClick={() => console.log(dayjs().diff(dayjs(i.orderdat)))}
+                  >
+                    time
+                    {/* {time.hour.toString()} */}
+                  </p>
                   <p className="text-xs text-gray-300">
                     sent by :{i.buyerdata?.name}
                   </p>

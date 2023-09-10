@@ -62,11 +62,13 @@ export const salesRouter = createTRPCRouter({
       const customerDetails = await ctx.prisma.user.findUnique({
         where: { id: i.senderId },
       });
+
       return {
         bookdata: bookdata,
         buyerdata: customerDetails,
         status: i.status,
         id: i.id,
+        orderdat: i.createdAt,
       };
     });
     const books = await Promise.all(promises);
@@ -97,11 +99,12 @@ export const salesRouter = createTRPCRouter({
     .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       try {
-        const status = await ctx.prisma.orders.delete({
+        const data = await ctx.prisma.orders.delete({
           where: {
             id: input.id,
           },
         });
+
         return "success";
       } catch (E) {
         return E;

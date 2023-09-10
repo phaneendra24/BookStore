@@ -59,11 +59,12 @@ model User {
 }
 
 model Orders {
-  id       String      @id @default(cuid())
-  orderid  String
-  senderId String
-  bookid   String
-  status   orderstatus @default(UNSOLD)
+  id        String      @id @default(cuid())
+  orderid   String
+  senderId  String
+  bookid    String
+  createdAt DateTime    @default(now())
+  status    orderstatus @default(UNSOLD)
 }
 
 model Books {
@@ -75,6 +76,7 @@ model Books {
   pages      Int
   price      Int
   authorname String
+  createdAt  DateTime   @default(now())
   owner      User       @relation(fields: [bookid], references: [id])
   wishlist   wishlist[]
 

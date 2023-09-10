@@ -3,26 +3,12 @@ import Link from "next/link";
 import Image from "next/image";
 
 import { motion } from "framer-motion";
+import LoadingUi from "../loadingui";
 
-const LoadingUi = () => {
-  const list = [0, 1, 2, 3, 4, 5, 6, 7];
+const Emptycard = () => {
   return (
-    <div className="no-scrollbar grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll px-2 py-4 sm:grid-cols-2 sm:px-0 md:grid-cols-3 xl:grid-cols-4">
-      {list.map((i) => {
-        return (
-          <div
-            key={i}
-            className="flex h-full w-full animate-pulse flex-col gap-2"
-          >
-            <div className="h-72 bg-[#252525] sm:h-60"></div>
-            <div className="h-4 w-2/3 bg-[#252525]"></div>
-            <div className="h-4 w-1/3 bg-[#252525]"></div>
-            <div className="flex w-full justify-center">
-              <div className="h-8 w-[50%] rounded-md bg-[#252525]"></div>
-            </div>
-          </div>
-        );
-      })}
+    <div className=" flex h-full min-h-[50vh] items-center justify-center">
+      No Data Found <span className="text-2xl">🥲</span>
     </div>
   );
 };
@@ -32,6 +18,10 @@ export default function Mainfeed() {
 
   if (isLoading) {
     return <LoadingUi />;
+  }
+
+  if (data?.length == 0) {
+    return <Emptycard />;
   }
 
   return (

@@ -25,8 +25,6 @@ export default function Trade() {
     });
   };
 
-  console.log(poststatus);
-
   return (
     <div className="relative ">
       {status == "loading" ? (
@@ -69,8 +67,20 @@ export default function Trade() {
                         <option value="fantasy" className="mt-2 p-2">
                           fantasy
                         </option>
+                        <option value="comedy" className="mt-2 py-5">
+                          comedy
+                        </option>
+                        <option value="Horror" className="mt-2 py-5">
+                          Horror
+                        </option>
+                        <option value="Mythology" className="mt-2 py-5">
+                          Mythology
+                        </option>
                         <option value="Romance" className="mt-2 py-5">
                           Romance
+                        </option>
+                        <option value="Adventure" className="mt-2 py-5">
+                          Adventure
                         </option>
                       </select>
                     </div>
