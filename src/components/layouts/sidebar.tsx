@@ -36,12 +36,7 @@ export default function Sidebar() {
   const router = useRouter();
 
   return (
-    <motion.div
-      className="fixed left-0 top-14 mx-4 hidden h-full w-fit text-white sm:block"
-      whileTap={{
-        scale: 1,
-      }}
-    >
+    <aside className="fixed left-0 top-14 mx-4 hidden h-full w-fit text-white sm:block">
       {options.map((i) => {
         return (
           <Link href={i.link} key={i.name}>
@@ -66,6 +61,6 @@ export default function Sidebar() {
           </Link>
         );
       })}
-    </motion.div>
+    </aside>
   );
 }

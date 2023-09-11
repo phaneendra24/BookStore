@@ -1,3 +1,4 @@
+
 import { wishlist } from "@prisma/client";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";

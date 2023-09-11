@@ -59,7 +59,7 @@ export default function Profileicon() {
           />
         ) : (
           <div
-            className="rounded-lg border-[2px] border-slate-600 p-2"
+            className="rounded-full text-blue-500 border-[1px] border-slate-600 p-2"
             onClick={() => {
               void signIn("google");
             }}

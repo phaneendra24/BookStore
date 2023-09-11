@@ -3,13 +3,13 @@ import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const updateRouter = createTRPCRouter({
   userLikedstatus: protectedProcedure
-    .input(z.string())
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       try {
         const likedata = await ctx.prisma.wishlist.findUnique({
           where: {
             bookId_userId: {
-              bookId: input,
+              bookId: input.id,
               userId: ctx.session.user.id,
             },
           },
