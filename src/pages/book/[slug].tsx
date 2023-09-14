@@ -5,6 +5,9 @@ import { api } from "~/utils/api";
 
 import type { Books, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
+import { enqueueSnackbar } from "notistack";
+import { useQueryClient } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 type book = {
   data: Books;
@@ -13,6 +16,33 @@ type book = {
 };
 
 export const Sidebookcard = ({ data }: book) => {
+  const router = useRouter();
+  const [like, setlike] = useState(false);
+  const { data: likestatus, refetch } = api.update.userLikedstatus.useQuery({
+    id: router.query.slug as string,
+  });
+  const { mutate, isSuccess } = api.update.updatinglike.useMutation({
+    onSettled: (res) => {
+      setlike(!like);
+    },
+  });
+  const addTowishlist = () => {
+    mutate({ id: router.query.slug as string });
+  };
+  if (isSuccess) {
+    const goandrefetch = async () => {
+      await refetch();
+    };
+    void goandrefetch();
+  }
+
+  console.log(like);
+
+  useEffect(() => {
+    if (likestatus) {
+      setlike(true);
+    }
+  }, [likestatus]);
   return (
     <>
       <div className="flex h-full min-h-[10vh] flex-col items-start justify-start gap-3 sm:w-1/3">
@@ -25,7 +55,12 @@ export const Sidebookcard = ({ data }: book) => {
           />
         </div>
         <div className=" hidden w-[90%] justify-between text-black sm:flex sm:w-[100%]">
-          <button className="rounded bg-white p-1">Add to wishlist</button>
+          <button
+            className="rounded bg-white p-1"
+            onClick={() => addTowishlist()}
+          >
+            {like ? <>liked</> : <>Add to wishlist</>}
+          </button>
           <button className="rounded bg-white p-1">${data.price}</button>
         </div>
       </div>
@@ -50,7 +85,6 @@ const Content = ({ data, slug, sellerdata }: book) => {
       senderid: sellerdata?.id as string,
     });
   };
-  console.log(isLoading);
 
   if (isSuccess) {
     const goandrefetch = async () => {

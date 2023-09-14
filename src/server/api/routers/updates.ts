@@ -15,7 +15,7 @@ export const updateRouter = createTRPCRouter({
           },
         });
         if (likedata) {
-          return likedata;
+          return true;
         } else {
           return null;
         }
