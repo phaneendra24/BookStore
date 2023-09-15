@@ -42,9 +42,9 @@ export const Sidebookcard = ({ data }: book) => {
       );
       return { prevdata };
     },
-    onSettled() {
+    async onSettled() {
       // Sync with server once mutation has settled
-      utils.update.userLikedstatus.invalidate({ id: querystring });
+      await utils.update.userLikedstatus.invalidate({ id: querystring });
     },
 
     // If the mutation fails, use the context-value from onMutate
@@ -71,16 +71,16 @@ export const Sidebookcard = ({ data }: book) => {
             alt="image yet to be loaded"
           />
         </div>
-        <div className=" hidden w-[90%] justify-between text-black sm:flex sm:w-[100%]">
+        <div className=" 0 flex w-full justify-between text-black sm:w-[90%]">
           <button
-            className={`rounded  ${
+            className={`w-1/3 rounded  ${
               likestatus?.status ? "bg-blue-400" : "bg-white"
             } p-1`}
             onClick={() => addTowishlist()}
           >
-            like
+            {likestatus?.status ? "Added" : "Add to wish"}
           </button>
-          <button className="rounded bg-white p-1">${data.price}</button>
+          <button className="w-1/3 rounded bg-white p-1">${data.price}</button>
         </div>
       </div>
     </>
