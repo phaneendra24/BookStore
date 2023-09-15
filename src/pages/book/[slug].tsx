@@ -17,32 +17,49 @@ type book = {
 
 export const Sidebookcard = ({ data }: book) => {
   const router = useRouter();
-  const [like, setlike] = useState(false);
+  const querystring = router.query.slug as string;
+  const utils = api.useContext();
   const { data: likestatus, refetch } = api.update.userLikedstatus.useQuery({
-    id: router.query.slug as string,
+    id: querystring,
   });
-  const { mutate, isSuccess } = api.update.updatinglike.useMutation({
-    onSettled: (res) => {
-      setlike(!like);
+
+  const {
+    data: gets,
+    mutate,
+    isSuccess,
+  } = api.update.updatinglike.useMutation({
+    async onMutate(status) {
+      await utils.update.userLikedstatus.cancel();
+      const prevdata = utils.update.userLikedstatus.getData({
+        id: querystring,
+      });
+
+      utils.update.userLikedstatus.setData(
+        { id: querystring },
+        {
+          status: !likestatus,
+        }
+      );
+      return { prevdata };
+    },
+    onSettled() {
+      // Sync with server once mutation has settled
+      utils.update.userLikedstatus.invalidate({ id: querystring });
+    },
+
+    // If the mutation fails, use the context-value from onMutate
+    onError(err, status) {
+      utils.update.userLikedstatus.setData(
+        { id: querystring },
+        { status: false }
+      );
     },
   });
+
   const addTowishlist = () => {
     mutate({ id: router.query.slug as string });
   };
-  if (isSuccess) {
-    const goandrefetch = async () => {
-      await refetch();
-    };
-    void goandrefetch();
-  }
 
-  console.log(like);
-
-  useEffect(() => {
-    if (likestatus) {
-      setlike(true);
-    }
-  }, [likestatus]);
   return (
     <>
       <div className="flex h-full min-h-[10vh] flex-col items-start justify-start gap-3 sm:w-1/3">
@@ -56,10 +73,12 @@ export const Sidebookcard = ({ data }: book) => {
         </div>
         <div className=" hidden w-[90%] justify-between text-black sm:flex sm:w-[100%]">
           <button
-            className="rounded bg-white p-1"
+            className={`rounded  ${
+              likestatus?.status ? "bg-blue-400" : "bg-white"
+            } p-1`}
             onClick={() => addTowishlist()}
           >
-            {like ? <>liked</> : <>Add to wishlist</>}
+            like
           </button>
           <button className="rounded bg-white p-1">${data.price}</button>
         </div>

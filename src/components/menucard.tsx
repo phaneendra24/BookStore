@@ -10,15 +10,19 @@ export default function MenuCard({ setmenustatus, menustatus }: IMyProps) {
   return (
     <>
       {menustatus ? (
-        <div className="fixed left-0 z-10 flex h-full w-2/5 flex-col justify-between bg-[#0f0f0f] sm:w-1/5">
-          <div className="mt-10 flex h-10 w-full justify-end py-1  hover:p-2 sm:px-2">
+        <div className="fixed left-0 z-20 flex h-full w-full justify-between bg-[#00] ">
+          <div
+            className="z-30
+            flex h-full w-full flex-col bg-[#0f0f0f] py-1 hover:p-2  sm:w-3/12 sm:px-2"
+          >
+            <h1>BookStore</h1>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="h-6 w-6 cursor-pointer border-2 border-yellow-400 "
+              className="h-6 w-6 cursor-pointer"
               onClick={() => setmenustatus(false)}
             >
               <path
@@ -27,17 +31,23 @@ export default function MenuCard({ setmenustatus, menustatus }: IMyProps) {
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </div>
 
-          <div>
-            <Profilecard />
+            <div>
+              <Profilecard />
+            </div>
+            <div
+              className="mx-10 mb-10 cursor-pointer rounded-sm border-y-[0.5px]   py-1 text-center text-xl font-semibold"
+              onClick={() => void signOut()}
+            >
+              Logout
+            </div>
           </div>
           <div
-            className="mx-10 mb-10 cursor-pointer rounded-sm border-y-[0.5px]   py-1 text-center text-xl font-semibold"
-            onClick={() => void signOut()}
-          >
-            Logout
-          </div>
+            className="h-full grow"
+            onClick={() => {
+              setmenustatus(false);
+            }}
+          ></div>
         </div>
       ) : (
         <></>

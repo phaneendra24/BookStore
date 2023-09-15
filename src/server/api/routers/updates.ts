@@ -15,11 +15,9 @@ export const updateRouter = createTRPCRouter({
           },
         });
         if (likedata) {
-          return true;
-        } else {
-          return null;
+          return { status: true };
         }
-        return likedata;
+        return { status: false };
       } catch (error) {
         return null;
       }
@@ -67,7 +65,7 @@ export const updateRouter = createTRPCRouter({
               },
             },
           });
-          return data;
+          return { status: false };
         }
         // adding to wishlist
         const data = await ctx.prisma.wishlist.create({
@@ -76,7 +74,7 @@ export const updateRouter = createTRPCRouter({
             userId: usersessionid,
           },
         });
-        return data;
+        return { status: true };
       } catch (error) {
         return error;
       }
