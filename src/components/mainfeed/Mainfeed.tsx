@@ -25,7 +25,7 @@ export default function Mainfeed() {
   }
 
   return (
-    <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll py-4 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-4">
+    <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll px-2 py-4  sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
       {data?.map((i) => {
         return (
           <Link href={`/book/${i.id}`} key={i.id}>
@@ -47,11 +47,12 @@ export default function Mainfeed() {
               </div>
               <div className="pl-2">
                 <h1 className="text-xl">{i.bookName}</h1>
-                Price : <span className="">1200</span>
-                .Rs
               </div>
-              <div className="flex w-full justify-center  text-center text-black">
-                <span className="w-[90%] rounded-md bg-white">view</span>
+              <div className="mb-2 flex w-full justify-between gap-3 px-5  text-center text-black">
+                <span className="w-1/2 rounded-md bg-white p-2 text-center">
+                  Rs.{i.price}
+                </span>
+                <span className="w-1/2 rounded-md bg-white p-2">view</span>
               </div>
             </motion.div>
           </Link>

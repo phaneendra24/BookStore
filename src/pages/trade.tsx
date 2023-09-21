@@ -1,8 +1,9 @@
 import { useSession } from "next-auth/react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
 import Signin from "./signin";
+import { enqueueSnackbar } from "notistack";
 
 export default function Trade() {
   const [bookname, setbookname] = useState("");
@@ -13,7 +14,7 @@ export default function Trade() {
   const { mutate, status: poststatus } = api.books.postbook.useMutation();
   const { data: session, status } = useSession();
 
-  const postBook = (e: React.FormEvent) => {
+  const postBook = async (e: React.FormEvent) => {
     e.preventDefault();
     mutate({
       bookname: bookname,
@@ -24,6 +25,17 @@ export default function Trade() {
       price: price,
     });
   };
+
+  useEffect(() => {
+    if (poststatus == "success") {
+      enqueueSnackbar("Your book is out for sale", { variant: "success" });
+      setbookname("");
+      setSynopsis("");
+      setauthorname("");
+      setGenre("");
+      setprice(0);
+    }
+  }, [poststatus]);
 
   return (
     <div className="relative ">
@@ -46,6 +58,7 @@ export default function Trade() {
                     <input
                       type="text"
                       required
+                      value={bookname}
                       onChange={(e) => setbookname(e.target.value)}
                       className="w-[90%] border-[1px] border-gray-700 bg-transparent p-2 outline-none focus:border-gray-50 lg:w-[50%]"
                       placeholder="name of the book"
@@ -90,6 +103,7 @@ export default function Trade() {
                       <input
                         type="number"
                         placeholder="enter price"
+                        value={price}
                         className=" border-[1px] border-gray-700 bg-transparent p-2 outline-none focus:border-gray-50"
                         onChange={(e) => setprice(parseInt(e.target.value))}
                       />
@@ -98,6 +112,7 @@ export default function Trade() {
                   <div className="flex  w-full flex-col items-start">
                     <span className="w-1/4">Synopsis </span>
                     <textarea
+                      value={synopsis}
                       onChange={(e) => setSynopsis(e.target.value)}
                       placeholder="Describe your books in few words"
                       required
@@ -108,6 +123,7 @@ export default function Trade() {
                   <div className="flex  w-full flex-col items-start">
                     <span className="">Author Name</span>
                     <input
+                      value={authorname}
                       onChange={(e) => setauthorname(e.target.value)}
                       type="text"
                       className="w-[90%] border-[1px] border-gray-700 bg-transparent p-2 outline-none focus:border-gray-50 lg:w-2/4"

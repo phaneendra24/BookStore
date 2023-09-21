@@ -6,8 +6,6 @@ import { api } from "~/utils/api";
 import type { Books, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { enqueueSnackbar } from "notistack";
-import { useQueryClient } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 
 type book = {
   data: Books;
@@ -103,6 +101,7 @@ const Content = ({ data, slug, sellerdata }: book) => {
       bookid: slug as string,
       senderid: sellerdata?.id as string,
     });
+    enqueueSnackbar("Order Placed", { variant: "success" });
   };
 
   if (isSuccess) {
