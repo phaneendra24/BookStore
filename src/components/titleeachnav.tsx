@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function Eachnav() {
   return (
     <nav className="flex w-fit items-center justify-center gap-2 text-base text-gray-400">
