@@ -14,7 +14,7 @@ export default function Trade() {
   const { mutate, status: poststatus } = api.books.postbook.useMutation();
   const { data: session, status } = useSession();
 
-  const postBook = async (e: React.FormEvent) => {
+  const postBook = (e: React.FormEvent) => {
     e.preventDefault();
     mutate({
       bookname: bookname,
