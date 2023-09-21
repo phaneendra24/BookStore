@@ -21,6 +21,7 @@ export const Sidebookcard = ({ data }: book) => {
     id: querystring,
   });
 
+  const { data: session } = useSession();
   const {
     data: gets,
     mutate,
@@ -55,6 +56,10 @@ export const Sidebookcard = ({ data }: book) => {
   });
 
   const addTowishlist = () => {
+    if (!session) {
+      alert("please sigin first!");
+      return;
+    }
     mutate({ id: router.query.slug as string });
   };
 
@@ -96,6 +101,7 @@ const Content = ({ data, slug, sellerdata }: book) => {
   const sendBuyReq = () => {
     if (!session) {
       alert("please sigin first!");
+      return;
     }
     mutate({
       bookid: slug as string,

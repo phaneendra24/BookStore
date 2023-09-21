@@ -9,8 +9,6 @@ export default function PrimaryLayout({ children }: { children: JSX.Element }) {
 
   return (
     <div className="relative flex h-full min-h-screen w-full  justify-center bg-black  text-white">
-      <MenuCard menustatus={menustatus} setmenustatus={setmenustatus} />
-
       <Navbar menustatus={menustatus} setmenustatus={setmenustatus} />
       <Sidebar />
 

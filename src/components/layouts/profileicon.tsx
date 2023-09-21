@@ -11,31 +11,52 @@ type popcardprops = {
 
 const Popupcard = ({ data, setpopup }: popcardprops) => {
   return (
-    <div
-      onClick={() => {
-        setpopup(false);
-      }}
-      className="fixed inset-0 flex justify-end  backdrop-brightness-75   transition-all"
-    >
-      <div className="mr-10 mt-20 h-32 rounded-sm bg-[#252525] p-2">
-        <div className="flex flex-col text-xs">
-          <span>
-            <Image
-              src={data?.user.image ?? ""}
-              alt="err loading"
-              width={30}
-              height={30}
-              className="rounded-full"
-            />
-            {data?.user.name}
-          </span>
-          <span>{data?.user.email}</span>
+    <div className="fixed inset-0 flex h-full w-full justify-end bg-black backdrop-brightness-75 transition-all   sm:bg-transparent   md:pr-20">
+      <div
+        onClick={() => {
+          setpopup(false);
+        }}
+        className="h-full w-full"
+      ></div>
+      <button
+        className="absolute mt-3 w-full rounded-xl bg-white text-center text-black sm:w-fit sm:bg-[#2c2c2c]"
+        onClick={() => setpopup(false)}
+      >
+        close
+      </button>
+      <div
+        className="z-100 absolute mt-20 flex h-full w-full flex-col gap-10 rounded-sm p-2 px-10 sm:mt-4 sm:h-fit sm:w-fit sm:bg-[#2c2c2c] sm:px-3 "
+        onClick={() => {
+          console.log("true");
+
+          setpopup(true);
+        }}
+      >
+        <div className="flex w-full gap-10 text-xs">
+          <Image
+            src={data?.user.image ?? ""}
+            alt="err loading"
+            width={30}
+            height={30}
+            className="rounded-full"
+          />
+          <div>
+            <h1>{data?.user.name}</h1>
+            <h1>{data?.user.email}</h1>
+          </div>
         </div>
         <button
+          className="flex items-center  text-center"
           onClick={() => void signOut()}
-          className="w-full py-2 hover:bg-[#504d4d]"
         >
-          Signout
+          <Image
+            src="/signout.svg"
+            alt="err"
+            width={20}
+            height={20}
+            className="mr-12"
+          />
+          <span className="">Signout</span>
         </button>
       </div>
     </div>
@@ -59,7 +80,7 @@ export default function Profileicon() {
           />
         ) : (
           <div
-            className="rounded-full text-blue-500 border-[1px] border-slate-600 p-2"
+            className="rounded-full border-[1px] border-slate-600 p-2 text-blue-500"
             onClick={() => {
               void signIn("google");
             }}
