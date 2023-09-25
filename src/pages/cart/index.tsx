@@ -7,9 +7,16 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Eachnav } from "../wishlist";
 
+const Noorder = () => {
+  return (
+    <div className="flex min-h-[60vh] w-full items-center justify-center text-xl ">
+      Dude! your cart is empty🫠
+    </div>
+  );
+};
+
 export default function CartIndex() {
   const { data: session, status } = useSession();
-  const [processing, setprocessing] = useState(Boolean);
   const {
     data,
     refetch,
@@ -25,74 +32,81 @@ export default function CartIndex() {
     return <Signin />;
   }
 
-  if (!data) {
-    return (
-      <div className="">
-        <div className="w-2/3 animate-pulse bg-[#252525]"></div>
-        <div className="w-10/12 animate-pulse bg-[#252525]"></div>
-      </div>
-    );
-  }
   const cancelOrder = (id: string | undefined) => {
     console.log(id);
     if (id != undefined) {
       mutate(id);
     }
   };
-  if (isSuccess) {
-    const goandrefetch = async () => {
-      await refetch();
-    };
-    void goandrefetch();
+  // if (isSuccess) {
+  //   const goandrefetch = async () => {
+  //     await refetch();
+  //   };
+  //   void goandrefetch();
+  // }
+
+  if (!data) {
+    return <div>loading</div>;
   }
 
   return (
-    <div>
+    <div className="h-full  min-h-[80vh] rounded-lg sm:bg-[#101218] sm:px-5">
       <Eachnav />
 
-      <div
-        className={`${
-          isLoading ? " animate-pulse opacity-30" : ""
-        } grid w-full grid-cols-1  gap-5 sm:grid-cols-3`}
-      >
-        {data.length == 0 ? (
-          <div className="">No items in the cart</div>
-        ) : (
-          <>
-            {data?.map((i) => {
-              return (
-                <motion.div
-                  key={i.bookdata?.id}
-                  className="flex w-full cursor-pointer flex-col items-start justify-center gap-2 border-[1px] border-slate-600 pb-2"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{
-                    scale: 1,
-                  }}
-                >
-                  <div className="flex h-72 w-full items-center justify-center bg-[#252525] sm:h-60">
-                    <Image
-                      priority
-                      src="/bookimage.svg"
-                      width={60}
-                      height={60}
-                      alt="no"
-                    />
+      <div className="mt-5 h-full w-full ">
+        <header className=" w-full rounded-lg bg-black p-2 ">
+          <ul className="hidden w-full justify-between  sm:flex">
+            <li className="w-32">orderid</li>
+            <li className="w-32">BookName</li>
+            <li className="w-32">Price</li>
+            <li className="w-32">status</li>
+            <li className="w-32">Order Date</li>
+          </ul>
+          <div className="sm:hidden">Your Orders</div>
+        </header>
+
+        <div className="mt-5 w-full  ">
+          <>{data.length == 0 && <Noorder />}</>
+          {data?.map((i, j) => {
+            return (
+              <div key={j} className="my-4 rounded-lg bg-[#141822] p-2">
+                <div className="flex w-full flex-col justify-between sm:flex-row ">
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">S.no</div>
+                    {j + 1}
                   </div>
-                  <div className="pl-2">
-                    <h1 className="text-xl">{i.bookdata?.bookName}</h1>
-                    Price : <span className="">1200</span>
-                    .Rs
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">BookName</div>
+
+                    {i.bookdata?.bookName}
                   </div>
-                  <div className="flex w-full justify-center  text-center text-black">
-                    <span className="w-[90%] rounded-md bg-white">
-                      {i.status}
-                    </span>
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">Pricing</div>
+
+                    {i.bookdata?.price}
                   </div>
-                </motion.div>
-              );
-            })}
-          </>
-        )}
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">Status</div>
+
+                    {i.status}
+                  </div>
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">Date of order</div>
+                    {}asdf
+                  </div>
+                </div>
+                <div className="mt-4 flex w-full justify-center">
+                  <button
+                    className="w-32 rounded-lg bg-black p-2"
+                    onClick={() => cancelOrder(i.orderid)}
+                  >
+                    {i.status == "PENDING" ? <>Cancel Order</> : <>Delivered</>}
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
