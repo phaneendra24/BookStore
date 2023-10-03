@@ -1,10 +1,7 @@
 import { useSession } from "next-auth/react";
-import { useState } from "react";
 import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
 import Signin from "../signin";
-import { motion } from "framer-motion";
-import Image from "next/image";
 import { Eachnav } from "../wishlist";
 
 const Noorder = () => {
@@ -46,7 +43,11 @@ export default function CartIndex() {
   // }
 
   if (!data) {
-    return <div>loading</div>;
+    return (
+      <div>
+        <LoadingUi />
+      </div>
+    );
   }
 
   return (

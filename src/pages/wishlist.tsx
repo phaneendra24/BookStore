@@ -53,6 +53,14 @@ export const Eachnav = () => {
   );
 };
 
+const Noitems = () => {
+  return (
+    <div className="flex min-h-[60vh] w-full items-center justify-center text-xl ">
+      Dude! your wishlist is empty🫠
+    </div>
+  );
+};
+
 export default function Wishlist() {
   const { data: session } = useSession();
   const { data, refetch, isLoading } = api.update.wishlistitems.useQuery();
@@ -62,7 +70,7 @@ export default function Wishlist() {
     return <Signin />;
   }
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return <LoadingUi />;
   }
 
@@ -77,57 +85,54 @@ export default function Wishlist() {
     void goandrefetch();
   }
   return (
-    <div className="">
+    <div className="min-h-[80vh] w-full bg-[#101218] p-3">
       <Eachnav />
-      <div className="no-scrollbar  grid h-full w-full grow grid-cols-1 place-content-center gap-7 overflow-scroll py-4 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-4">
-        {!data || data.length == 0 ? (
-          <div className="flex w-full items-center justify-center ">
-            No Records Found
-          </div>
-        ) : (
-          <>
-            {data.map((i) => {
-              return (
-                <motion.div
-                  key={i.id}
-                  className="w-fit  rounded-md p-5 "
-                  whileHover={{
-                    scale: 1.02,
-                  }}
-                >
-                  <div className="h-72 w-full bg-[#252525]">
-                    <Image
-                      priority
-                      src="/bookimage.svg"
-                      width={60}
-                      height={60}
-                      alt="no"
-                      className="h-6 w-6 rounded-md"
-                    />
+      <div className="mt-5 h-full w-full ">
+        <header className=" w-full rounded-lg bg-black p-2 ">
+          <ul className="hidden w-full justify-between  sm:flex">
+            <li className="w-32">Cancel</li>
+            <li className="w-32">BookName</li>
+            <li className="w-32">Price</li>
+            <li className="w-32">status</li>
+            <li className="w-32"></li>
+          </ul>
+          <div className="sm:hidden">Your Orders</div>
+        </header>
+
+        <div className="mt-5 w-full  ">
+          <>{data.length == 0 && <Noitems />}</>
+          {data?.map((i, j) => {
+            return (
+              <div key={j} className="my-4 rounded-lg bg-[#141822] p-2">
+                <div className="flex w-full flex-col justify-between sm:flex-row ">
+                  <div className="flex w-full  justify-end  sm:w-32 sm:justify-start">
+                    <Image src="/trash.svg" alt="not" width={20} height={20} />
                   </div>
-                  <h1 className="text-xl">{i.bookName}</h1>
-                  <p className="text-gray-400">{i.authorname}</p>
-                  <div className="flex justify-between">
-                    <span className="">
-                      <span className="animate-bounce text-orange-700">
-                        Price :{i.price}
-                      </span>
-                      .Rs
-                    </span>
-                    <button
-                      type="button"
-                      value={i.bookid}
-                      className="rounded-sm bg-red-800 px-1"
-                      onClick={() => removelike(i.id)}
-                    >
-                      Remove
-                    </button>
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">BookName</div>
+
+                    {i.bookName}
                   </div>
-                </motion.div>
-              );
-            })}
-          </>
-        )}
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">Pricing</div>
+                    {i.price}
+                  </div>
+                  <div className="flex w-full  sm:w-32">
+                    <div className="w-1/2  sm:hidden">In stock</div>
+                    Yes
+                  </div>
+                  <div className="flex w-full  sm:w-32 ">
+                    <Link href={`/book/${i.id}`}>
+                      <button className="rounded-lg bg-[#000000] p-2">
+                        View
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
