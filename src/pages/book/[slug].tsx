@@ -17,9 +17,14 @@ export const Sidebookcard = ({ data }: book) => {
   const router = useRouter();
   const querystring = router.query.slug as string;
   const utils = api.useContext();
-  const { data: likestatus, refetch } = api.update.userLikedstatus.useQuery({
-    id: querystring,
-  });
+  const { data: likestatus, refetch } = api.update.userLikedstatus.useQuery(
+    {
+      id: querystring,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const { data: session } = useSession();
   const {
@@ -27,31 +32,31 @@ export const Sidebookcard = ({ data }: book) => {
     mutate,
     isSuccess,
   } = api.update.updatinglike.useMutation({
-    async onMutate(status) {
+    async onMutate(likestate) {
       await utils.update.userLikedstatus.cancel();
-      const prevdata = utils.update.userLikedstatus.getData({
+
+      const cachedata = utils.update.userLikedstatus.getData({
         id: querystring,
       });
 
-      utils.update.userLikedstatus.setData(
-        { id: querystring },
-        {
-          status: !likestatus,
-        }
-      );
-      return { prevdata };
-    },
-    async onSettled() {
-      // Sync with server once mutation has settled
-      await utils.update.userLikedstatus.invalidate({ id: querystring });
-    },
+      console.log(cachedata);
 
-    // If the mutation fails, use the context-value from onMutate
-    onError(err, status) {
       utils.update.userLikedstatus.setData(
         { id: querystring },
-        { status: false }
+        (prev) => !prev
       );
+      return cachedata;
+    },
+    onError(err, newPost, ctx) {
+      // If the mutation fails, use the context-value from onMutate
+      utils.update.userLikedstatus.setData(
+        { id: querystring },
+        (prev) => !prev
+      );
+    },
+    onSettled() {
+      // Sync with server once mutation has settled
+      utils.update.userLikedstatus.invalidate();
     },
   });
 
@@ -77,11 +82,11 @@ export const Sidebookcard = ({ data }: book) => {
         <div className=" 0 flex w-full justify-between text-black sm:w-[90%]">
           <button
             className={`w-1/3 rounded  ${
-              likestatus?.status ? "bg-blue-400" : "bg-white"
+              likestatus ? "bg-blue-400" : "bg-white"
             } p-1`}
             onClick={() => addTowishlist()}
           >
-            {likestatus?.status ? "Added" : "Add to wish"}
+            {likestatus ? "Added" : "Add to wish"}
           </button>
           <button className="w-1/3 rounded bg-white p-1">${data.price}</button>
         </div>
@@ -91,10 +96,15 @@ export const Sidebookcard = ({ data }: book) => {
 };
 
 const Content = ({ data, slug, sellerdata }: book) => {
-  const { data: productstatus, refetch } = api.sales.productstatus.useQuery({
-    bookid: slug as string,
-    senderid: sellerdata?.id as string,
-  });
+  const { data: productstatus, refetch } = api.sales.productstatus.useQuery(
+    {
+      bookid: slug as string,
+      senderid: sellerdata?.id as string,
+    },
+    {
+      refetchOnWindowFocus: false,
+    }
+  );
   const { data: session } = useSession();
 
   const { mutate, isSuccess, isLoading } = api.sales.buyproduct.useMutation();
@@ -212,23 +222,13 @@ export default function Page() {
     {
       id: slug as string,
     },
-    { enabled: !!router.query.slug }
-  );
-
-  // query for getting wishliststatus
-
-  const { data: wishliststatus } = api.update.userLikedstatus.useQuery(
-    {
-      id: slug as string,
-    },
-    { enabled: !!router.query.slug }
+    { enabled: !!router.query.slug, refetchOnWindowFocus: false }
   );
 
   // query for books information
-
   const { data, isLoading } = api.books.getEachBookData.useQuery(
     slug as string,
-    { enabled: !!slug }
+    { enabled: !!slug, refetchOnWindowFocus: false }
   );
   // likestatus querying
   const { data: likestatus } = api.update.userLikedstatus.useQuery(
@@ -237,6 +237,7 @@ export default function Page() {
     },
     {
       enabled: !!slug,
+      refetchOnWindowFocus: false,
     }
   );
   if (!data || !sellerdata || isLoading || !likestatus == null) {

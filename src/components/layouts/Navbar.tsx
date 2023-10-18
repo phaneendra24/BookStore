@@ -18,3 +18,5 @@ export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
     </div>
   );
 }
+
+

@@ -15,11 +15,11 @@ export const updateRouter = createTRPCRouter({
           },
         });
         if (likedata) {
-          return { status: true };
+          return true;
         }
-        return { status: false };
+        return false;
       } catch (error) {
-        return null;
+        return false;
       }
     }),
 
