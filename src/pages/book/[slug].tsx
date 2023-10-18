@@ -54,9 +54,9 @@ export const Sidebookcard = ({ data }: book) => {
         (prev) => !prev
       );
     },
-    onSettled() {
+   async  onSettled() {
       // Sync with server once mutation has settled
-      utils.update.userLikedstatus.invalidate();
+     await utils.update.userLikedstatus.invalidate();
     },
   });
 
