@@ -1,5 +1,4 @@
 /* eslint-disable  @typescript-eslint/no-non-null-assertion */
-
 import { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -19,13 +18,13 @@ const Popupcard = ({ data, setpopup }: popcardprops) => {
         className="h-full w-full"
       ></div>
       <button
-        className="absolute mt-3 w-full rounded-xl bg-white text-center text-black sm:w-fit sm:bg-[#2c2c2c]"
+        className="absolute mt-3 w-full rounded-xl bg-white text-center text-black sm:invisible sm:w-fit"
         onClick={() => setpopup(false)}
       >
         close
       </button>
       <div
-        className="z-100 absolute mt-20 flex h-full w-full flex-col gap-10 rounded-sm p-2 px-10 sm:mt-4 sm:h-fit sm:w-fit sm:bg-[#2c2c2c] sm:px-3 "
+        className="z-100 absolute top-14 flex  h-full w-full flex-col gap-10 rounded-sm border-[2px] border-[#353535] bg-black p-2 px-10 sm:mt-4 sm:h-fit sm:w-fit  sm:px-3 "
         onClick={() => {
           console.log("true");
 

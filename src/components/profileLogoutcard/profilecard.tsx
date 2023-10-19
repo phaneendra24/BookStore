@@ -21,13 +21,13 @@ export default function Profilecard() {
         className="mt-5 flex w-52 flex-col justify-start rounded-lg px-10 py-5"
         onClick={() => setToggleon(true)}
       >
-        <Image
+        {/* <Image
           src={session.user.image ?? "/home.png"}
           alt="profile photo"
           width={50}
           height={50}
           className="w-28 rounded-full"
-        />
+        /> */}
         {session.user.name ?? <>phaneendra</>}
       </div>
       {toogleon ? <div>show</div> : <></>}

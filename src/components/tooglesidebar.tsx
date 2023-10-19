@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Profilecard from "./profilecard";
+import Profilecard from "./profileLogoutcard/profilecard";
 
 export default function Sidebar() {
   return (

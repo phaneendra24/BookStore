@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Profileicon from "./profileicon";
+import Profileicon from "../profileLogoutcard/profileicon";
 import type { Dispatch, SetStateAction } from "react";
 
 interface IMyProps {
@@ -18,5 +18,3 @@ export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
     </div>
   );
 }
-
-

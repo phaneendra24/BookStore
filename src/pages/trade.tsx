@@ -16,7 +16,8 @@ export default function Trade() {
   const { mutate, status: poststatus } = api.books.postbook.useMutation();
   const { data: session, status } = useSession();
 
-  const postBook = () => {
+  const postBook = (e: React.FormEvent) => {
+    e.preventDefault();
     mutate({
       bookname: bookname,
       synopsis: synopsis,
@@ -67,6 +68,7 @@ export default function Trade() {
                       required
                       className="rounded-md border-[1px] border-[#343434] bg-black px-2 py-1 outline-none   focus:border-white sm:w-[80%] "
                       placeholder="bookname...."
+                      onChange={(e) => setbookname(e.currentTarget.value)}
                     />
                   </div>
                   {/* each input divs */}
@@ -76,6 +78,7 @@ export default function Trade() {
                       required
                       className="rounded-md border-[1px] border-[#343434] bg-black px-2 py-1 outline-none   focus:border-white sm:w-[80%] "
                       placeholder="bookname...."
+                      onChange={(e) => setauthorname(e.currentTarget.value)}
                     />
                   </div>
                 </div>
@@ -87,8 +90,13 @@ export default function Trade() {
                     <span>Price</span>
                     <input
                       required
+                      value={price}
+                      type="number"
                       className="rounded-md border-[1px] border-[#343434] bg-black px-2 py-1 outline-none   focus:border-white sm:w-[80%] "
                       placeholder="bookname...."
+                      onChange={(e) =>
+                        setprice(parseInt(e.currentTarget.value))
+                      }
                     />
                   </div>
                   {/* each input divs */}
@@ -97,7 +105,11 @@ export default function Trade() {
                       <div className="absolute left-0 top-16 flex h-32 w-[9.8rem] flex-col overflow-scroll border-[1px] border-[#323232] bg-black ">
                         {GenreFields.map((i) => {
                           return (
-                            <button value={i} onClick={(e) => selectoption(e)}>
+                            <button
+                              value={i}
+                              key={i}
+                              onClick={(e) => selectoption(e)}
+                            >
                               {i}
                             </button>
                           );
@@ -108,6 +120,7 @@ export default function Trade() {
                     )}
                     <span>Genre</span>
                     <button
+                      type="button"
                       className="flex w-fit min-w-[10vh] cursor-pointer border-[1px] border-[#343434] bg-black px-2"
                       onClick={() => {
                         setopen((prev) => !prev);
@@ -155,7 +168,10 @@ export default function Trade() {
                   <div className="flex flex-col sm:w-1/2 ">
                     <span>Synopsis</span>
 
-                    <textarea className="min-h-[20vh] w-full border-[1px] border-[#343434] bg-black p-2 outline-none" />
+                    <textarea
+                      className="min-h-[20vh] w-full border-[1px] border-[#343434] bg-black p-2 outline-none"
+                      onChange={(e) => setSynopsis(e.currentTarget.value)}
+                    />
                   </div>
                   {/* each input divs */}
                   <div className="flex w-1/2 flex-col">
@@ -170,8 +186,9 @@ export default function Trade() {
 
                 <div className=" flex w-full justify-center">
                   <button
+                    type="submit"
                     className="border-[2px] border-[#323232] bg-white p-2 px-10 text-black"
-                    onClick={() => postBook()}
+                    onClick={(e) => postBook(e)}
                   >
                     submit
                   </button>

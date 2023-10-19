@@ -1,10 +1,8 @@
-import { motion } from "framer-motion";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
 import Signin from "./signin";
-import type { Books, User } from "@prisma/client";
 
 import Link from "next/link";
 

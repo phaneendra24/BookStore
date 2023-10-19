@@ -1,6 +1,6 @@
 import { signOut } from "next-auth/react";
 import type { Dispatch, SetStateAction } from "react";
-import Profilecard from "./profilecard";
+import Profilecard from "./profileLogoutcard/profilecard";
 
 interface IMyProps {
   menustatus: boolean;
