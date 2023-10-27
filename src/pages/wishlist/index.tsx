@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
-import Signin from "./signin";
+import Signin from "../signin";
 
 import Link from "next/link";
 

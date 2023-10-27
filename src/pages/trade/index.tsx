@@ -2,7 +2,7 @@ import { useSession } from "next-auth/react";
 import React, { useEffect, useState } from "react";
 import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
-import Signin from "./signin";
+import Signin from "../signin";
 import { enqueueSnackbar } from "notistack";
 
 export default function Trade() {

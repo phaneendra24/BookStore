@@ -22,6 +22,19 @@ export const booksrouter = createTRPCRouter({
     }
   }),
 
+  getuserbooks: protectedProcedure.query(async ({ ctx }) => {
+    try {
+      const books = await ctx.prisma.books.findMany({
+        where: {
+          owner: ctx.session.user,
+        },
+      });
+      return books;
+    } catch (error) {
+      return [];
+    }
+  }),
+
   getEachBookData: publicProcedure
     .input(z.string())
     .query(async ({ ctx, input }) => {

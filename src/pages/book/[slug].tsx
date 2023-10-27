@@ -3,6 +3,8 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { api } from "~/utils/api";
 
+import { motion } from "framer-motion";
+
 import type { Books, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { enqueueSnackbar } from "notistack";
@@ -54,9 +56,9 @@ export const Sidebookcard = ({ data }: book) => {
         (prev) => !prev
       );
     },
-   async  onSettled() {
+    async onSettled() {
       // Sync with server once mutation has settled
-     await utils.update.userLikedstatus.invalidate();
+      await utils.update.userLikedstatus.invalidate();
     },
   });
 
@@ -80,15 +82,40 @@ export const Sidebookcard = ({ data }: book) => {
           />
         </div>
         <div className=" 0 flex w-full justify-between text-black sm:w-[90%]">
-          <button
-            className={`w-1/3 rounded  ${
-              likestatus ? "bg-blue-400" : "bg-white"
-            } p-1`}
+          <motion.button
+            whileHover={{
+              scale: 1.05,
+            }}
+            whileTap={{
+              scale: 0.98,
+            }}
+            className={`flex w-40 items-center justify-between gap-2 rounded-lg p-1  py-2 text-white  ${
+              likestatus ? "bg-pink-400" : " bg-[#ff84bb] text-white"
+            }`}
             onClick={() => addTowishlist()}
           >
-            {likestatus ? "Added" : "Add to wish"}
-          </button>
-          <button className="w-1/3 rounded bg-white p-1">${data.price}</button>
+            <span className="w-fit">
+              {/* <Image alt="not found" src="/love.svg" width={20} height={20} /> */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill={`${likestatus ? "#ffffff" : "#ff84bb"}`}
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="white"
+                className="h-5 w-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+                />
+              </svg>
+            </span>
+            <span className="grow text-center">
+              {likestatus ? "Added!" : "Add to wish"}
+            </span>
+          </motion.button>
+          <button className=" rounded bg-white p-1">${data.price}</button>
         </div>
       </div>
     </>
