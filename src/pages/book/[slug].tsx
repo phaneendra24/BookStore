@@ -8,6 +8,11 @@ import { motion } from "framer-motion";
 import type { Books, User } from "@prisma/client";
 import { useSession } from "next-auth/react";
 import { enqueueSnackbar } from "notistack";
+import Eachbookdata, {
+  Getsellerdata,
+  booklikestatus,
+} from "~/components/data-queries/eachbookdata";
+import Buyproduct from "~/components/mutations/likemutate";
 
 type book = {
   data: Books;
@@ -19,14 +24,7 @@ export const Sidebookcard = ({ data }: book) => {
   const router = useRouter();
   const querystring = router.query.slug as string;
   const utils = api.useContext();
-  const { data: likestatus, refetch } = api.update.userLikedstatus.useQuery(
-    {
-      id: querystring,
-    },
-    {
-      refetchOnWindowFocus: false,
-    }
-  );
+  const { likestatus, refetch } = booklikestatus(querystring);
 
   const { data: session } = useSession();
   const {
@@ -134,7 +132,8 @@ const Content = ({ data, slug, sellerdata }: book) => {
   );
   const { data: session } = useSession();
 
-  const { mutate, isSuccess, isLoading } = api.sales.buyproduct.useMutation();
+  const { mutate, isSuccess, isLoading } = Buyproduct();
+
   const sendBuyReq = () => {
     if (!session) {
       alert("please sigin first!");
@@ -245,29 +244,11 @@ export default function Page() {
   const slug = router.query.slug;
 
   // query for getting sellerdata
-  const { data: sellerdata } = api.books.sellerdata.useQuery(
-    {
-      id: slug as string,
-    },
-    { enabled: !!router.query.slug, refetchOnWindowFocus: false }
-  );
+  const { sellerdata } = Getsellerdata(slug as string);
 
-  // query for books information
-  const { data, isLoading } = api.books.getEachBookData.useQuery(
-    slug as string,
-    { enabled: !!slug, refetchOnWindowFocus: false }
-  );
-  // likestatus querying
-  const { data: likestatus } = api.update.userLikedstatus.useQuery(
-    {
-      id: slug as string,
-    },
-    {
-      enabled: !!slug,
-      refetchOnWindowFocus: false,
-    }
-  );
-  if (!data || !sellerdata || isLoading || !likestatus == null) {
+  const { data, isLoading } = Eachbookdata(slug as string);
+
+  if (!data || !sellerdata || isLoading) {
     return (
       <div className="my-10 flex w-full flex-col items-center justify-center gap-5 px-5">
         <div className="flex h-8 w-full animate-pulse justify-between">

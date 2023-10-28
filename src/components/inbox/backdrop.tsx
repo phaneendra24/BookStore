@@ -26,27 +26,27 @@ const Backdrop = ({
           <div className="flex w-fit flex-col gap-5">
             <div className="flex w-full ">
               <div className="h-fit w-52 ">BookName</div>
-              <input className="border-[1px] border-[#3c3c3c] bg-black outline-none" />
+              <input className="border-[1px] border-[#3c3c3c] bg-black p-1 outline-none" />
             </div>
 
             <div className="flex w-fit ">
               <div className="h-fit w-52 ">AuthorName</div>
-              <input className="border-[1px] border-[#3c3c3c] bg-black outline-none" />
+              <input className="border-[1px] border-[#3c3c3c] bg-black p-1 outline-none" />
             </div>
 
             <div className="flex w-fit ">
               <div className="h-fit w-52 ">Price</div>
-              <input className="border-[1px] border-[#3c3c3c] bg-black outline-none" />
+              <input className="border-[1px] border-[#3c3c3c] bg-black p-1 outline-none" />
             </div>
 
             <div className="flex w-fit ">
               <div className="h-fit w-52 ">Genre</div>
-              <input className="border-[1px] border-[#3c3c3c] bg-black outline-none" />
+              <input className="border-[1px] border-[#3c3c3c] bg-black p-1 outline-none" />
             </div>
 
             <div className="flex w-fit ">
               <div className="h-fit w-52 ">Synopsis</div>
-              <input className="border-[1px] border-[#3c3c3c] bg-black outline-none" />
+              <input className="border-[1px] border-[#3c3c3c] bg-black p-1 outline-none" />
             </div>
           </div>
 
