@@ -15,10 +15,10 @@ export function booklikestatus(querystring: string) {
 }
 
 export default function Eachbookdata(slug: string) {
-  const { data, isLoading } = api.books.getEachBookData.useQuery(
-    slug as string,
-    { enabled: !!slug, refetchOnWindowFocus: false }
-  );
+  const { data, isLoading } = api.books.getEachBookData.useQuery(slug, {
+    enabled: !!slug,
+    refetchOnWindowFocus: false,
+  });
 
   return { data, isLoading };
 }
@@ -27,7 +27,7 @@ export function Getsellerdata(slug: string) {
   // query for getting sellerdata
   const { data } = api.books.sellerdata.useQuery(
     {
-      id: slug as string,
+      id: slug,
     },
     { enabled: !!slug, refetchOnWindowFocus: false }
   );
