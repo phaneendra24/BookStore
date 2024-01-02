@@ -24,7 +24,7 @@ const Popupcard = ({ data, setpopup }: popcardprops) => {
         close
       </button>
       <div
-        className="z-100 absolute top-14 flex  h-full w-full flex-col gap-10 rounded-sm border-[2px] border-[#353535] bg-black p-2 px-10 sm:mt-4 sm:h-fit sm:w-fit  sm:px-3 "
+        className="z-100 absolute top-14 flex  h-full w-full flex-col gap-10 rounded-lg  shadow-white shadow-sm bg-black p-2 px-10 sm:mt-4 sm:h-fit sm:w-fit  sm:px-3 "
         onClick={() => {
           console.log("true");
 
@@ -67,24 +67,32 @@ export default function Profileicon() {
   const [isopen, setisopen] = useState(false);
   return (
     <>
-      <div className="h-fit w-fit cursor-pointer">
+      <div className="h-fit w-fit cursor-pointer hover:opacity-80">
         {data ? (
+          <div className="flex items-center justify-center border-[1px] border-[#a3a3a3] rounded-full px-2 py-1 gap-2"
+            onClick={() => setisopen(!isopen)}
+
+          >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+</svg>
+
           <Image
             src={data?.user.image ?? ""}
             alt="err loading"
-            width={30}
-            height={30}
-            className="h-10 w-10 rounded-full"
-            onClick={() => setisopen(!isopen)}
-          />
+            width={20}
+            height={20}
+            className="h-8 w-8 rounded-full"
+            />
+            </div>
         ) : (
           <div
-            className="rounded-full border-[1px] border-slate-600 p-2 text-blue-500"
+            className="rounded-lg px-3 bg-white text-black border-[1px] border-slate-600 p-2 "
             onClick={() => {
               void signIn("google");
             }}
           >
-            Signin
+            Signup to use
           </div>
         )}
       </div>

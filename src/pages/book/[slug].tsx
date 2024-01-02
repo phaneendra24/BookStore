@@ -274,7 +274,7 @@ export default function Page() {
       </div>
 
       <div className="h-[50vh]">
-        <h1>Cutomer reviews</h1>
+        <h1>Cutomer Reviews</h1>
       </div>
     </div>
   );

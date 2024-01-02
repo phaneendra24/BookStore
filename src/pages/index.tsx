@@ -13,10 +13,11 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex w-full flex-col justify-center">
-        <div className="w-full ">
+      <main className="flex flex-col justify-normal min-h-[100vh]">
           <Mainfeed />
-        </div>
+          <div className="text-[#a3a3a3] px-10 py-5  text-center border-t-[0.1px] border-[#a3a3a3]">
+            Developed by @phaneendra
+          </div>
       </main>
     </>
   );
