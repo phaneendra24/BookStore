@@ -11,17 +11,31 @@ export const salesRouter = createTRPCRouter({
   buyproduct: protectedProcedure
     .input(z.object({ senderid: z.string(), bookid: z.string() }))
     .mutation(async ({ input, ctx }) => {
+      console.log(input.bookid, "div", input.senderid);
+
+      const exist = await ctx.prisma.orders.findUnique({
+        where: {
+          bookid_buyerid: {
+            bookid: input.bookid,
+            buyerid: ctx.session.user.id,
+          },
+        },
+      });
+      console.log("ajsdjjfkajsdkjfjasdasdfasdfasdfa*****************", exist);
+
+      if (exist) {
+        return false;
+      }
       try {
         const update = await ctx.prisma.orders.create({
           data: {
             bookid: input.bookid,
-            orderid: input.senderid,
-            senderId: ctx.session.user.id,
+            sellerid: input.senderid,
+            buyerid: ctx.session.user.id,
             status: "PENDING",
           },
         });
         console.log(update);
-
         return update;
       } catch (error) {
         console.log("failed", error);
@@ -35,7 +49,7 @@ export const salesRouter = createTRPCRouter({
       const data = await ctx.prisma.orders.findMany({
         where: {
           bookid: input.bookid,
-          orderid: input.senderid,
+          buyerid: input.senderid,
         },
       });
       if (data.length > 0) {
@@ -48,7 +62,7 @@ export const salesRouter = createTRPCRouter({
   ProductInbox: protectedProcedure.query(async ({ ctx }) => {
     const data = await ctx.prisma.orders.findMany({
       where: {
-        orderid: ctx.session.user.id,
+        buyerid: ctx.session.user.id,
         status: "PENDING",
       },
     });
@@ -60,14 +74,13 @@ export const salesRouter = createTRPCRouter({
         },
       });
       const customerDetails = await ctx.prisma.user.findUnique({
-        where: { id: i.senderId },
+        where: { id: i.sellerid },
       });
 
       return {
         bookdata: bookdata,
         buyerdata: customerDetails,
         status: i.status,
-        id: i.id,
         orderdat: i.createdAt,
       };
     });

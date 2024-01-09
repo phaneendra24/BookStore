@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { createTRPCRouter, protectedProcedure } from "../../trpc";
+import { createTRPCRouter, protectedProcedure } from "../trpc";
 
 export const CartRouter = createTRPCRouter({
   getcartitems: protectedProcedure.query(async ({ ctx }) => {
     const data = await ctx.prisma.orders.findMany({
       where: {
-        senderId: ctx.session.user.id,
+        buyerid: ctx.session.user.id,
       },
     });
     const Allbookorders = data.map(async (i) => {

@@ -59,12 +59,15 @@ model User {
 }
 
 model Orders {
-  id        String      @id @default(cuid())
-  orderid   String
-  senderId  String
+  sellerid  String
+  buyerid   String
   bookid    String
   createdAt DateTime    @default(now())
   status    orderstatus @default(UNSOLD)
+
+  @@id([bookid, buyerid])
+  @@index([bookid])
+  @@index([buyerid])
 }
 
 model Books {
@@ -79,6 +82,7 @@ model Books {
   createdAt  DateTime   @default(now())
   owner      User       @relation(fields: [bookid], references: [id])
   wishlist   wishlist[]
+  reviews    reviews[]
 
   @@index([bookid])
 }
@@ -92,6 +96,15 @@ model wishlist {
   @@id([bookId, userId])
   @@index([userId])
   @@index([bookId])
+}
+
+
+model reviews{
+  id   String   @id @default(cuid())
+  reviewId String
+  content String
+  books Books @relation(fields: [reviewId],references: [id])
+  @@index([reviewId])
 }
 
 enum orderstatus {
