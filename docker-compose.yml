@@ -6,10 +6,37 @@ services:
     container_name: mysqlcontainer
     environment:
       MYSQL_ROOT_PASSWORD: "pass"
-      MYSQL_USER: phaneendra
+      MYSQL_USER: mysql
       MYSQL_PASSWORD: "pass"
       MYSQL_DATABASE: mysqldb
     ports:
       - 3306:3306
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ../mysql-data:/var/lib/mysql
+
+  minio:
+    image: docker.io/bitnami/minio:latest  # Use the latest MinIO image
+    container_name: minio
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    networks:
+      - minionetwork
+    volumes:
+      - minio_data:/data  # Persist MinIO data
+    environment:
+      - MINIO_ROOT_USER=minio
+      - MINIO_ROOT_PASSWORD=minio
+      - MINIO_DEFAULT_BUCKETS=minio
+
+networks:
+  minionetwork:
+    driver: bridge
+
+volumes:
+  minio_data:
+    driver: local
+    driver_opts:
+      type: none
+      device: ./minio_data
+      o: bind

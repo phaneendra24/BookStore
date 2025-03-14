@@ -2,7 +2,7 @@
 import { Session } from "next-auth";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React, { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 type popcardprops = {
   data: Session | null;
   setpopup: Dispatch<SetStateAction<boolean>>;

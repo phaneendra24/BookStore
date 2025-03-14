@@ -1,18 +1,18 @@
+import type { Books, User } from "@prisma/client";
+import { format } from "date-fns";
+import { motion } from "framer-motion";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { api } from "~/utils/api";
-import { motion } from "framer-motion";
-import type { Books, User } from "@prisma/client";
-import { useSession } from "next-auth/react";
 import { enqueueSnackbar } from "notistack";
+import React from "react";
 import Eachbookdata, {
   Getsellerdata,
   booklikestatus,
 } from "~/components/data-queries/eachbookdata";
 import Buyproduct from "~/components/mutations/buyingmutate";
 import Eachnav from "~/components/titleeachnav";
-import { format } from "date-fns";
-import React, { useEffect } from "react";
+import { api } from "~/utils/api";
 
 
 type book = {
@@ -266,7 +266,7 @@ export default function Page() {
             <Image className="h-fit rounded-full w-10" src={session.data?.user.image as string} alt="failed" width={20} height={20} />
             <form action="" onSubmit={(e) => post(e)} className="border-[1px] w-full border-[#a3a3a3] flex justify-between h-fit">
               <input placeholder="leave a review" className="w-full h-fit p-2 outline-none  bg-transparent " />
-              <button type="submit" className="bg-[#a3a3a3]  text-black p-2">post</button>
+              <button type="submit" className="bg-[#a3a3a3]  text-black p-2">Publish</button>
             </form>
           </div>
           <div className=" flex flex-col gap-2 mt-3">

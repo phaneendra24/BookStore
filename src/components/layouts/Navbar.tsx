@@ -1,9 +1,8 @@
-import Image from "next/image";
-import Profileicon from "../profileLogoutcard/profileicon";
-import type { Dispatch, SetStateAction } from "react";
-import { animate, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import type { Dispatch, SetStateAction } from "react";
+import Profileicon from "../profileLogoutcard/profileicon";
 
 export const options = [
   {
@@ -65,7 +64,9 @@ interface IMyProps {
 export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
   return (
     <div className="fixed top-0 bg-black px-10  z-10 flex h-fit w-full py-[9px] items-center justify-between border-b-[0.1px] border-slate-600 ">
+      <Link href="/">
         <div className=" text-2xl font-medium">Book shelf</div>
+      </Link>
       <div className=" flex justify-end h-full grow items-center gap-2">
         <Sidebar />
 

@@ -1,10 +1,10 @@
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { enqueueSnackbar } from "notistack";
 import React, { useEffect, useState } from "react";
 import LoadingUi from "~/components/loadingui";
 import { api } from "~/utils/api";
 import Signin from "../signin";
-import { enqueueSnackbar } from "notistack";
-import Image from "next/image";
 
 
 
@@ -179,7 +179,7 @@ export default function Trade() {
                   className="rounded-md bg-[#6c63ff] text-white p-2 px-10 "
                   onClick={(e) => postBook(e)}
                 >
-                  POST
+                  Publish
                 </button>
               </form>
             </div>
