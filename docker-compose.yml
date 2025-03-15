@@ -13,30 +13,17 @@ services:
       - 3306:3306
     volumes:
       - ../mysql-data:/var/lib/mysql
-
   minio:
-    image: docker.io/bitnami/minio:latest  # Use the latest MinIO image
-    container_name: minio
+    image: minio/minio
     ports:
-      - '9000:9000'
-      - '9001:9001'
-    networks:
-      - minionetwork
+      - "9000:9000"
+      - "9001:9001"
     volumes:
-      - minio_data:/data  # Persist MinIO data
+      - minio_storage:/data
     environment:
-      - MINIO_ROOT_USER=minio
-      - MINIO_ROOT_PASSWORD=minio
-      - MINIO_DEFAULT_BUCKETS=minio
-
-networks:
-  minionetwork:
-    driver: bridge
+      MINIO_ROOT_USER: phaneendra
+      MINIO_ROOT_PASSWORD: StrongPass#2002
+    command: server --console-address ":9001" /data
 
 volumes:
-  minio_data:
-    driver: local
-    driver_opts:
-      type: none
-      device: ./minio_data
-      o: bind
+  minio_storage: {}

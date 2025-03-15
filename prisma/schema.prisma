@@ -3,9 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider          = "mysql"
-  url               = env("DATABASE_URL")
-  relationMode      = "prisma"
+  provider     = "mysql"
+  url          = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model Account {
@@ -70,7 +70,7 @@ model Orders {
 }
 
 model Books {
-  id         String     @id @default(cuid())
+  id         String       @id @default(cuid())
   bookid     String
   bookName   String
   synopsis   String
@@ -78,12 +78,25 @@ model Books {
   pages      Int
   price      Int
   authorname String
-  createdAt  DateTime   @default(now())
-  owner      User       @relation(fields: [bookid], references: [id])
+  createdAt  DateTime     @default(now())
+  imageKeys  Json
+  owner      User         @relation(fields: [bookid], references: [id])
   wishlist   wishlist[]
   reviews    reviews[]
+  images     BookImages[]
 
   @@index([bookid])
+}
+
+model BookImages {
+  id        String   @id @default(cuid())
+  bookId    String
+  imageKey  String
+  createdAt DateTime @default(now())
+  book      Books    @relation(fields: [bookId], references: [id])
+
+  @@index([id])
+  @@index([bookId])
 }
 
 model wishlist {
@@ -97,12 +110,12 @@ model wishlist {
   @@index([bookId])
 }
 
-
-model reviews{
-  id   String   @id @default(cuid())
+model reviews {
+  id       String @id @default(cuid())
   reviewId String
-  content String
-  books Books @relation(fields: [reviewId],references: [id])
+  content  String
+  books    Books  @relation(fields: [reviewId], references: [id])
+
   @@index([reviewId])
 }
 

@@ -1,53 +1,82 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useSession } from "next-auth/react";
-import Image from "next/image";
 import { enqueueSnackbar } from "notistack";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import DragAndDrop from "~/components/DragAndDrop";
 import LoadingUi from "~/components/loadingui";
+import { Button } from "~/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "~/components/ui/form";
+import { Input } from "~/components/ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "~/components/ui/select";
+import { Textarea } from "~/components/ui/textarea";
 import { api } from "~/utils/api";
 import Signin from "../signin";
 
-
+const formSchema = z.object({
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  authorname: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  price: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  synopsis: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+  Genre: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
+});
 
 export default function Trade() {
-  const [open, setopen] = useState(false);
-  const [bookname, setbookname] = useState("");
-
-  const [authorname, setauthorname] = useState("");
-  const [price, setprice] = useState(0);
-  const [synopsis, setSynopsis] = useState("");
-  const [Genre, setGenre] = useState("");
   const { mutate, status: poststatus } = api.books.postbook.useMutation();
   const { data: session, status } = useSession();
-
-  const postBook = (e: React.FormEvent) => {
-    e.preventDefault();
+  const [imageKeys, setImageKeys] = useState<string[]>([]);
+  const publish = (values: z.infer<typeof formSchema>) => {
     mutate({
-      bookname: bookname,
-      synopsis: synopsis,
-      genre: Genre,
+      bookname: "",
+      synopsis: values.synopsis,
+      genre: values.Genre,
       pages: 100,
-      authorname: authorname,
-      price: price,
+      authorname: values.authorname,
+      price: values.price,
     });
   };
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      bookname: "",
+      synopsis: "",
+      authorname: "",
+      Genre: "",
+    },
+  });
 
   useEffect(() => {
     if (poststatus == "success") {
       enqueueSnackbar("Your book is out for sale", { variant: "success" });
-      setbookname("");
-      setSynopsis("");
-      setauthorname("");
-      setGenre("");
-      setprice(0);
     }
   }, [poststatus]);
-
-  console.log(Genre);
-
-  const selectoption = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setGenre(e.currentTarget.value);
-    setopen(false);
-  };
 
   const GenreFields = ["Fanstasy", "Horror", "Sci-Fi", "Mythology", "Romance"];
   return (
@@ -59,131 +88,116 @@ export default function Trade() {
           {!session ? (
             <Signin />
           ) : (
-            <div className="flex justify-center  items-center px-10 gap-3">
-              <div className="w-1/3  hidden md:block">
-                <Image src="shelves.svg" alt="failed to load" width={150} height={150} className="h-96 w-96 flex-shrink-0" />
-              </div>
-
-              <form className="flex h-full w-full md:w-1/2 flex-col gap-4">
-                <div className="flex w-full gap-5 justify-between items-center ">
-                  <span className="w-32">Bookname</span>
-                  <input
-                    required
-                    className="rounded-md border-[1px] border-[#343434] bg-black p-2 outline-none   focus:border-white w-full "
-                    placeholder="bookname...."
-                    onChange={(e) => setbookname(e.currentTarget.value)}
-                  />
-                </div>
-                {/* each input divs */}
-                <div className="flex w-full gap-5 justify-between">
-                  <span className="w-32">AuthorName</span>
-                  <input
-                    required
-                    className="rounded-md border-[1px] border-[#343434] bg-black p-2 outline-none   focus:border-white w-full "
-                    placeholder="bookname...."
-                    onChange={(e) => setauthorname(e.currentTarget.value)}
-                  />
-                </div>
-
-                {/* next */}
-
-                <div className="flex w-full gap-6 justify-between ">
-                  <span className="w-32">Price</span>
-                  <input
-                    required
-                    value={price}
-                    type="number"
-                    className="rounded-md border-[1px] border-[#343434] bg-black p-2 outline-none   focus:border-white w-full"
-                    placeholder="bookname...."
-                    onChange={(e) =>
-                      setprice(parseInt(e.currentTarget.value))
-                    }
-                  />
-                </div>
-                {/* each input divs */}
-                <div className="relative flex w-full gap-5 justify-between">
-                  {open ? (
-                    <div className="absolute right-5 scrollbar-hide gap-4 top-10 flex h-32 w-[9.8rem] flex-col overflow-scroll  bg-black ">
-                      {GenreFields.map((i) => {
-                        return (
-                          <button
-                            value={i}
-                            key={i}
-                            onClick={(e) => selectoption(e)}
-                            className="border-[1px] p-2 border-[#323232]"
-                          >
-                            {i}
-                          </button>
-                        );
-                      })}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                  <span>Genre</span>
-                  <button
-                    type="button"
-                    className="flex p-2 rounded-md w-fit min-w-[10vh] cursor-pointer border-[1px] border-[#343434] bg-black px-2"
-                    onClick={() => {
-                      setopen((prev) => !prev);
-                    }}
-                  >
-                    {Genre === "" ? "Select Genre" : Genre}
-                    {!open ? (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="h-6 w-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M19.5 8.25l-7.5 7.5-7.5-7.5"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth="1.5"
-                        stroke="currentColor"
-                        className="h-6 w-6"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M4.5 15.75l7.5-7.5 7.5 7.5"
-                        />
-                      </svg>
-                    )}
-                  </button>
-                </div>
-
-                {/* next */}
-
-                <div className="flex gap-5 w-full ">
-                  <span className="w-32">Synopsis</span>
-
-                  <textarea
-                    className="min-h-[20vh] rounded-md  w-full border-[1px] border-[#343434] bg-black p-2 outline-none"
-                    onChange={(e) => setSynopsis(e.currentTarget.value)}
-                  />
-                </div>
-                {/* each input divs */}
-                <button
-                  type="submit"
-                  className="rounded-md bg-[#6c63ff] text-white p-2 px-10 "
-                  onClick={(e) => postBook(e)}
+            <div className="flex justify-center gap-10 px-40 ">
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(publish)}
+                  className="grid grow grid-cols-2 gap-x-3 space-y-4"
                 >
-                  Publish
-                </button>
-              </form>
-            </div>
+                  <FormField
+                    control={form.control}
+                    name="username"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2">
+                        <FormLabel>Username</FormLabel>
+                        <FormControl>
+                          <Input placeholder="username." {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display user name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
+                  <FormField
+                    control={form.control}
+                    name="authorname"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2">
+                        <FormLabel>Authorname</FormLabel>
+                        <FormControl>
+                          <Input placeholder="authorname." {...field} />
+                        </FormControl>
+                        <FormDescription>
+                          This is your public display name.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                      <FormItem className="col-span-1">
+                        <FormLabel>Price</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            placeholder="username."
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormDescription>
+                          Price of the book you want to publish.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="price"
+                    render={({ field }) => (
+                      <FormItem className="col-span-1">
+                        <FormLabel>Genre</FormLabel>
+                        <FormControl>
+                          <Select>
+                            <SelectTrigger className="w-[180px]">
+                              <SelectValue placeholder="Theme" />
+                            </SelectTrigger>
+                            <SelectContent className="bg-black text-white">
+                              <SelectItem value="light">Light</SelectItem>
+                              <SelectItem value="dark">Dark</SelectItem>
+                              <SelectItem value="system">System</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </FormControl>
+                        <FormDescription>
+                          Genre of the book you want to publish.
+                        </FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="synopsis"
+                    render={({ field }) => (
+                      <FormItem className="col-span-2">
+                        <FormLabel>Synopsis</FormLabel>
+                        <FormControl>
+                          <Textarea />
+                        </FormControl>
+                        <FormDescription>synopsis of book</FormDescription>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit">Publish</Button>
+                </form>
+              </Form>
+              <div className="hidden h-full w-1/2 md:block">
+                <div className="mx-auto mt-10 h-full w-full">
+                  <DragAndDrop />
+                </div>
+                {/* <Image src="shelves.svg" alt="failed to load" width={150} height={150} className="h-96 w-96 flex-shrink-0" /> */}
+              </div>
+            </div>
           )}
         </>
       )}
