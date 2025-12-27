@@ -34,8 +34,7 @@ export const options = [
   },
 ];
 
-
-const Sidebar=()=> {
+const Sidebar = () => {
   const router = useRouter();
 
   return (
@@ -45,18 +44,19 @@ const Sidebar=()=> {
           <Link href={i.link} key={i.name}>
             <motion.div
               className={`${
-                router.asPath == `${i.link}` ? "underline underline-offset-8 " : ""
-              } px-4 py-1 flex items-center justify-center rounded-lg hover:bg-white hover:text-black`}
+                router.asPath == `${i.link}`
+                  ? "underline underline-offset-8 "
+                  : ""
+              } flex items-center justify-center rounded-lg px-4 py-1 hover:bg-white hover:text-black`}
             >
-                {i.name}
+              {i.name}
             </motion.div>
           </Link>
         );
       })}
     </div>
   );
-}
-
+};
 
 interface IMyProps {
   menustatus: boolean;
@@ -64,9 +64,11 @@ interface IMyProps {
 }
 export default function Navbar({ setmenustatus, menustatus }: IMyProps) {
   return (
-    <div className="fixed top-0 bg-black px-10  z-10 flex h-fit w-full py-[9px] items-center justify-between border-b-[0.1px] border-slate-600 ">
+    <div className="fixed top-0 z-10 flex  h-fit w-full items-center justify-between border-b-[0.1px] border-slate-600 bg-black px-10 py-[9px] ">
+      <Link href="/">
         <div className=" text-2xl font-medium">Book shelf</div>
-      <div className=" flex justify-end h-full grow items-center gap-2">
+      </Link>
+      <div className=" flex h-full grow items-center justify-end gap-2">
         <Sidebar />
 
         <Profileicon />

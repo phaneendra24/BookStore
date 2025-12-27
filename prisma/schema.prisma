@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider          = "mysql"
+  provider          = "postgresql"
   url               = env("DATABASE_URL")
   shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
   relationMode      = "prisma"
@@ -15,12 +15,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?
   session_state     String?
   user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -98,12 +98,12 @@ model wishlist {
   @@index([bookId])
 }
 
-
-model reviews{
-  id   String   @id @default(cuid())
+model reviews {
+  id       String @id @default(cuid())
   reviewId String
-  content String
-  books Books @relation(fields: [reviewId],references: [id])
+  content  String
+  books    Books  @relation(fields: [reviewId], references: [id])
+
   @@index([reviewId])
 }
 

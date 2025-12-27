@@ -1,15 +1,17 @@
 version: "3.8"
 
 services:
-  mysql:
-    image: mysql:latest
-    container_name: mysqlcontainer
+  postgres:
+    image: postgres:16
+    container_name: postgrescontainer
     environment:
-      MYSQL_ROOT_PASSWORD: "pass"
-      MYSQL_USER: phaneendra
-      MYSQL_PASSWORD: "pass"
-      MYSQL_DATABASE: mysqldb
+      POSTGRES_USER: phaneendra
+      POSTGRES_PASSWORD: pass
+      POSTGRES_DB: mypgdb
     ports:
-      - 3306:3306
+      - "7200:5432"
     volumes:
-      - ./mysql-data:/var/lib/mysql
+      - ./postgres-data:/var/lib/postgresql/data
+
+volumes:
+  book-postgres-data:

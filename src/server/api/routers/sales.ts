@@ -78,6 +78,7 @@ export const salesRouter = createTRPCRouter({
       });
 
       return {
+        id: i.id,
         bookdata: bookdata,
         buyerdata: customerDetails,
         status: i.status,
